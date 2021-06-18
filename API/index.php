@@ -5,7 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $router = new AltoRouter();
 // setBasePath specifies a base URL 
-$router->setBasePath('API/ski/');
+$router->setBasePath('API/Project_ski/');
 
 //Map a route to a target
 $router->map('GET', '/', 'ControllerCategory#selectcategory', 'homepage');
