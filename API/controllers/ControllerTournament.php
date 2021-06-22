@@ -2,11 +2,11 @@
 
 class ControllerTournament
 { 
-    public function insertTournment(){
+    public function insertTournament(){
         
         $insert = new Tournament(array('city' =>  $_POST['city'], 'date' => $_POST['date']));
         $manager = new TournamentManager();
-        $participant = $manager->insertionTournament($insert);
+        $tournament = $manager->insertionTournament($insert);
 
     }
 }
