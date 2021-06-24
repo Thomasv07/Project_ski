@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <Header />
+    <component :is="layout">
+      <router-view /> 
+    </component> 
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+
+const default_layout = "default";
 
 export default {
-  name: 'app',
-  components: {
-    Header
+  computed: {
+    layout() {
+      return (this.$router.meta.layout || default_layout) + '-layout';
+    }
   }
-}
+};
 </script>
+
