@@ -1,6 +1,6 @@
 <?php
 
-class Participant {
+class Participant implements JsonSerializable{
     private $id_participant;
     private $firstname;
     private $lastname;
@@ -95,5 +95,20 @@ class Participant {
 
     public function setNumber_sign($number_sign){
         $this->number_sign = $number_sign; 
+    }
+
+    public function jsonSerialize()
+    {
+        return 
+        [
+            'id_participant' => $this->id_participant,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'dob' => $this->dob,
+            'email' => $this->email,
+            'picture' => $this->picture,
+            'id_category' => $this->id_category,
+            'number_sign' => $this->number_sign,
+        ];
     }
 }
