@@ -14,17 +14,16 @@ class ControllerTrial
         if (in_array($file_ext, $allowed_ext)) {
             $targetPath = $_FILES['import_file']['tmp_name'];
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetPath);
-            $data = $spreadsheet->getActiveSheet()->toArray();
+            $data = $spreadsheet->getActiveSheet();
             
-            $highestColumn = $data->getHighestColumn();
-            var_dump($data);
-            
-            for($i=3; $i < $highestColumn ; $i++){
-                
-                $number_sign = [$i => $row['0']];
-                $first_time = [$i =>$row['3']];
-                $second_time = [$i =>$row['4']];
-
+            $highestRow = $data->getHighestRow();
+            var_dump($highestRow);
+            for($row=4; $row < $highestRow ; $row++){
+                var_dump($row);
+                $number_sign = $data->getCellByColumnAndRow(4, $row)->getValue(); 
+                $first_time = $data->getCellByColumnAndRow(1, $row)->getValue(); 
+                $second_time = $data->getCellByColumnAndRow(5, $row)->getValue(); 
+                var_dump($number_sign);
                 $insertTrial = new Trial(array('number_sign' => $number_sign, 'first_time' => $first_time, 'second_time' => $second_time));
                 $manager = new TrialManager();
                 $trials = $manager->insertionTrial($insertTrial);
