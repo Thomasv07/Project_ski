@@ -55,7 +55,7 @@ class ParticipantManager extends Model
         $req->closeCursor();
     }
 
-    public function listAll()
+    public function listAllJson()
     {
         $db = $this->getDb();
 
@@ -66,5 +66,18 @@ class ParticipantManager extends Model
         }
         $listing->closeCursor();
         return json_encode($list);
+    }
+
+    public function listAllExcel()
+    {
+        $db = $this->getDb();
+
+        $list = [];
+        $listing = $db->query('SELECT * FROM `participant`');
+        while ($data = $listing->fetch(PDO::FETCH_ASSOC)) {
+            $list[] = new Participant($data);
+        }
+        $listing->closeCursor();
+        return $list;
     }
 }

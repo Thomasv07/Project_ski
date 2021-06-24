@@ -2,6 +2,7 @@
 class Trial
 {
     private $id_trial;
+    private $number_sign;
     private $first_time;
     private $second_time;
     private $average;
@@ -27,6 +28,11 @@ class Trial
     public function getId_trial()
     {
         return $this->id_trial;
+    }
+
+    public function getNumber_sign()
+    {
+        return $this->number_sign;
     }
 
     public function getFirst_time()
@@ -55,9 +61,14 @@ class Trial
         }
     }
 
-    public function setFirst_time($first_time)
+    public function setNumber_sign($first_time)
     {
             $this->first_time = $first_time;
+    }
+
+    public function setFirst_time($number_sign)
+    {
+            $this->number_sign = $number_sign;
     }
 
     public function setSecond_time($second_time)
