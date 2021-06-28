@@ -1,6 +1,6 @@
 <template>
   <div class="export">
-    <Header/>
+    <Header />
     <h2>Formulaire</h2>
     <form action="./insert" method="POST" enctype="multipart/form-data">
       <div>
@@ -10,82 +10,114 @@
           name="city"
           id="city"
           placeholder="Nom de l'épreuve"
-          required/>
+          required
+        />
         <input type="date" name="date" id="date" required />
       </div>
       <section class="participant">
         <p>Ajouter des participants :</p>
         <div>
-          <input
-            type="file"
-            name="picture[]"
-            accept=".jpg, .jpeg, .gif, .png"
-            id="imgInp"
-          />
+          <div>
+            <input
+              type="file"
+              name="picture[]"
+              accept=".jpg, .jpeg, .gif, .png"
+              id="imgInp"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="firstname[]"
+              id="firstname"
+              placeholder="Prénom"
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="lastname[]"
+              id="lastname"
+              placeholder="Nom"
+              required
+            />
+          </div>
+          <div>
+            <input type="date" name="dob[]" id="dob" required />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="email[]"
+              id="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <select name="category[]" id="category">
+            <option value=""></option>
+          </select>
         </div>
-        <div>
-          <input
-            type="text"
-            name="firstname[]"
-            id="firstname"
-            placeholder="Prénom"
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            name="lastname[]"
-            id="lastname"
-            placeholder="Nom"
-            required
-          />
-        </div>
-        <div>
-          <input type="date" name="dob[]" id="dob" required />
-        </div>
-        <div>
-          <input
-            type="text"
-            name="email[]"
-            id="email"
-            placeholder="Email"
-            required
-          />
-        </div>
-        <select name="category[]" id="category">
-          <option value="">
-          </option>
-        </select>
       </section>
-      <BtnPax/>
-      <input type="submit" name="submit" value="Valider" />
+      <div id="container"></div>
+      <button type="button" @click="BtnPax" id="add"> Ajouter un participant</button>
+      <input type="submit" name="submit" value="Valider"/>
     </form>
   </div>
 </template>
 
 <script>
-
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
-import BtnPax from "@/components/BtnPax.vue";
 
 
 export default {
   name: "Export",
   components: {
     Header,
-    BtnPax
+
   },
   data() {
-     return {
-      btn: 0,
+    return {
+    
     };
   },
-    methods: {
-    async AddPax() {
-     this.btn++
-    },
-   },
+  methods: {
+    BtnPax: function () {
+      var container = document.getElementById("container");
+        let div = document.createElement("div");
+        container.prepend(div);
+
+        let inputImg = document.createElement("input");
+        inputImg.type = 'file';
+        inputImg.name = 'picture[]';
+        inputImg.accept = '.jpg, .jpeg, .gif, .png';
+        div.prepend(inputImg);
+
+        let firstname = document.createElement("input");
+        firstname.type = 'text';
+        firstname.name = 'firstname[]';
+        firstname.placeholder = 'Prénom';
+        div.append(firstname);
+
+        let lastname = document.createElement("input");
+        lastname.type = 'text';
+        lastname.name = 'lastname[]';
+        lastname.placeholder = 'Nom';
+        div.append(lastname);
+
+        let date = document.createElement("input");
+        date.type = 'date';
+        date.name = 'dob[]';
+        div.append(date);
+
+        let email = document.createElement("input");
+        email.type = 'text';
+        email.name = 'email[]';
+        email.placeholder = 'Email';
+        div.append(email);
+    }
+  }
 };
 </script>
