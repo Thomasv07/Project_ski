@@ -8,14 +8,14 @@
 <script>
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
+import ApiService from "../services/api.services";
 
-
+const apiservice = new ApiService();
 
 export default {
   name: "Home",
   components: {
-    Header,
-    
+    Header
   },
   data() {
     return {

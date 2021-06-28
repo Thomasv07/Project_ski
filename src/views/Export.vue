@@ -58,7 +58,7 @@
           </option>
         </select>
       </section>
-      <BtnPax  v-on:click="btn += 1"/>
+      <BtnPax/>
       <input type="submit" name="submit" value="Valider" />
     </form>
   </div>
@@ -84,7 +84,7 @@ export default {
   },
     methods: {
     async AddPax() {
-     this.btn ++
+     this.btn++
     },
    },
 };
