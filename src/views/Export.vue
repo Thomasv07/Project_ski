@@ -1,6 +1,6 @@
 <template>
   <div class="export">
-    <Header />
+    <Header/>
     <h2>Formulaire</h2>
     <form action="./insert" method="POST" enctype="multipart/form-data">
       <div>
@@ -56,79 +56,35 @@
         <select name="category[]" id="category">
           <option value="">
           </option>
-        
         </select>
       </section>
-      <div id="container"></div>
-      <input type="button" id="add" value="+" />
+      <BtnPax  v-on:click="btn += 1"/>
       <input type="submit" name="submit" value="Valider" />
     </form>
   </div>
 </template>
+
 <script>
-
-
-let container = document.getElementById("container");
-let btn = document.getElementById("add");
-let i = 0;
-
-btn.addEventListener("click", function() {
-    i++;
-
-    let div = document.createElement("div");
-    container.prepend(div);
-
-    let inputImg = document.createElement("input");
-    inputImg.type = 'file';
-    inputImg.name = 'picture[]';
-    inputImg.accept = '.jpg, .jpeg, .gif, .png';
-    div.prepend(inputImg);
-
-    let firstname = document.createElement("input");
-    firstname.type = 'text';
-    firstname.name = 'firstname[]';
-    firstname.placeholder = 'Prénom';
-    div.append(firstname);
-
-    let lastname = document.createElement("input");
-    lastname.type = 'text';
-    lastname.name = 'lastname[]';
-    lastname.placeholder = 'Nom';
-    div.append(lastname);
-
-    let date = document.createElement("input");
-    date.type = 'date';
-    date.name = 'dob[]';
-    div.append(date);
-
-    let email = document.createElement("input");
-    email.type = 'text';
-    email.name = 'email[]';
-    email.placeholder = 'Email';
-    div.append(email);
-
-    let select = document.createElement("select");
-    select.name = 'category[]';
-    div.append(select);
-    let arrayv= ["1", "2", "3", "4", "5", "6"]
-    let arrayt = ["M1", "M2", "M3", "Sénior", "Snow", "Nouvelle Glisse"]
-    for (var j = 0; j < 6; j++) {
-        let option = document.createElement("option");
-        option.value = arrayv[j];
-        option.text = arrayt[j];
-        select.appendChild(option);
-    }
-
-});
 
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
+import BtnPax from "@/components/BtnPax.vue";
 
 export default {
   name: "Export",
   components: {
     Header,
+    BtnPax
   },
-  
+  data() {
+     return {
+      btn: 0,
+    };
+  },
+    methods: {
+    async AddPax() {
+     this.btn ++
+    },
+   },
 };
 </script>

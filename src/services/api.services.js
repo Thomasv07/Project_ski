@@ -1,4 +1,4 @@
-export default class ApiService {
+export default class Participant {
     constructor(){}
     
     getAll(){
