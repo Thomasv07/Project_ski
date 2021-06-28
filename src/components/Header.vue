@@ -15,13 +15,30 @@
       </nav>
     </div>
     <div class="trait"></div>
-    <img class="snow" :src="require('../assets/couv.png')" />
+    <img class="snow" v-if="checkIfExport" :src="require('../assets/couv.png')" />
+    <img class="snow" v-else-if="checkIfImport" :src="require('../assets/skieuse.png')" />
+    <img class="snow" v-else-if="checkIfHome" :src="require('../assets/esf.jpg')" />
+
+    
   </div>
 </template>
 
 <script>
 export default {
   name: "Header",
+
+  computed: {
+    checkIfExport() {
+      return (this.$route.path === '/export') ? true : false
+    },
+    checkIfImport() {
+      return (this.$route.path === '/import') ? true : false
+    },
+    checkIfHome() {
+      return (this.$route.path === '/') ? true : false
+    }
+  }
+  
 };
 </script>
 
