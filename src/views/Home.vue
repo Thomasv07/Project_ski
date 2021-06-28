@@ -17,5 +17,17 @@ export default {
     Header,
     
   },
+  data() {
+    return {
+      data: null,
+    };
+  },
+  methods: {
+    async getAll(pax) {
+      const res = await apiservice.getAll(pax);
+      const data = await res.json();
+      this.data = data.results;
+    },
+  },
 };
 </script>
