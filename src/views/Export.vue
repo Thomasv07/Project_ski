@@ -70,6 +70,7 @@
 import Header from "@/components/Header.vue";
 import BtnPax from "@/components/BtnPax.vue";
 
+
 export default {
   name: "Export",
   components: {
