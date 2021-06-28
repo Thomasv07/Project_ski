@@ -1,6 +1,6 @@
 <template>
   <div class="export">
-    <Header/>
+    
     <h2>Formulaire</h2>
     <form action="./insert" method="POST" enctype="multipart/form-data">
       <div>
@@ -61,21 +61,22 @@
       <BtnPax  v-on:click="btn += 1"/>
       <input type="submit" name="submit" value="Valider" />
     </form>
+    
   </div>
 </template>
 
 <script>
 
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
+
 import BtnPax from "@/components/BtnPax.vue";
+
 
 
 export default {
   name: "Export",
   components: {
-    Header,
-    BtnPax
+    BtnPax,
   },
   data() {
      return {

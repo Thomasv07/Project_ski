@@ -14,12 +14,10 @@
         <router-link to="/export">Création d'événements</router-link>
       </nav>
     </div>
-    <div class="trait"></div>
-    <img class="snow" v-if="checkIfExport" :src="require('../assets/couv.png')" />
-    <img class="snow" v-else-if="checkIfImport" :src="require('../assets/skieuse.png')" />
-    <img class="snow" v-else-if="checkIfHome" :src="require('../assets/esf.jpg')" />
-
-    
+      <div class="trait"></div>
+      <img class="snow" v-if="checkIfExport" :src="require('../assets/couv.png')" />
+      <img class="snow" v-else-if="checkIfImport" :src="require('../assets/skieuse.png')" />
+      <img class="snow" v-else-if="checkIfHome" :src="require('../assets/esf.jpg')" />
   </div>
 </template>
 
