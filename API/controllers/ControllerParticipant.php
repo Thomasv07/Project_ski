@@ -3,6 +3,13 @@
 class ControllerParticipant
 {
 
+    public function getAll(){
+
+        $manager = new ParticipantManager();
+        $participant = $manager->listAllJson();
+        echo $participant;
+    }
+
     public function insertParticipant()
     {
 

@@ -7,7 +7,6 @@ class ControllerCategory
         $manager = new CategoryManager();
         $category = $manager->select();
 
-        require '../views/form.php';
         
     }
 }
