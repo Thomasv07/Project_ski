@@ -101,9 +101,11 @@ export default {
       const res = await apiservice.getCategory();
       const data = await res.json();
       this.categories = data;
+      
      
     },
     BtnPax: function () {
+     
       var container = document.getElementById("container");
       let div = document.createElement("div");
       container.prepend(div);
@@ -140,6 +142,8 @@ export default {
       let select = document.createElement("select");
       select.name = 'category[]';
       div.append(select);
+  console.log(this.categories);
+      
         // let arrayv= [this.categories];
         // let arrayt = [1,2];
         for (var j = 0; j < this.categories.length; j++) {
