@@ -38,4 +38,6 @@ this.data = data.results;
 };
 </script>
 
-
+<style scoped>
+  
+</style>

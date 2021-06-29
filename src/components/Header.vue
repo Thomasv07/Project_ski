@@ -15,9 +15,9 @@
       </nav>
     </div>
       <div class="trait"></div>
-      <img class="snow" v-if="checkIfExport" :src="require('../assets/couv.png')" />
+      <img class="snow" v-if="checkIfExport" :src="require('../assets/casque.png')" />
       <img class="snow" v-else-if="checkIfImport" :src="require('../assets/skieuse.png')" />
-      <img class="snow" v-else-if="checkIfHome" :src="require('../assets/esf.jpg')" />
+      <img class="snow" v-else-if="checkIfHome" :src="require('../assets/couv1.png')" />
   </div>
 </template>
 
@@ -36,7 +36,6 @@ export default {
       return (this.$route.path === '/') ? true : false
     }
   }
-  
 };
 </script>
 
@@ -83,6 +82,7 @@ background-size: cover;
 background-repeat: no-repeat;
 width: 100%;
 z-index: -20;
+
 }
 .montagne {
 width: 90px;
