@@ -84,16 +84,16 @@ const apiservice = new ApiService();
 
 export default {
   name: "Export",
-   props: {
+  props: {
     type: String,
   },
   components: {},
   data() {
     return {
-       categories: null,
+      categories: null,
     };
   },
-   mounted() {
+  mounted() {
     this.getCategory();
   },
   methods: {
@@ -101,11 +101,8 @@ export default {
       const res = await apiservice.getCategory();
       const data = await res.json();
       this.categories = data;
-      
-     
     },
     BtnPax: function () {
-     
       var container = document.getElementById("container");
       let div = document.createElement("div");
       container.prepend(div);
@@ -140,19 +137,14 @@ export default {
       div.append(email);
 
       let select = document.createElement("select");
-      select.name = 'category[]';
+      select.name = "category[]";
       div.append(select);
-  console.log(this.categories);
-      
-        // let arrayv= [this.categories];
-        // let arrayt = [1,2];
-        for (var j = 0; j < this.categories.length; j++) {
-
-            // let option = document.createElement("option");
-            // option.value = arrayv[j];
-            // option.text = arrayt[j];
-            // select.appendChild(option);
-            }
+      this.categories.forEach((element) => {
+        let option = document.createElement("option");
+        option.value = element.id_category;
+        option.text = element.type;
+        select.appendChild(option);
+      });
     },
   },
 };
