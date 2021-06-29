@@ -57,7 +57,13 @@
               />
             </div>
             <select name="category[]" id="category">
-              <option value=""></option>
+              <option
+                v-for="category in categories"
+                :key="category.id_category"
+                :value="category.id_category"
+              >
+                {{ category.type }}
+              </option>
             </select>
           </div>
         </section>
@@ -72,14 +78,31 @@
 </template>
 
 <script>
+import ApiService from "../services/api.services";
+
+const apiservice = new ApiService();
 
 export default {
   name: "Export",
+   props: {
+    type: String,
+  },
   components: {},
   data() {
-    return {};
+    return {
+       categories: null,
+    };
+  },
+   mounted() {
+    this.getCategory();
   },
   methods: {
+    async getCategory() {
+      const res = await apiservice.getCategory();
+      const data = await res.json();
+      this.categories = data;
+     
+    },
     BtnPax: function () {
       var container = document.getElementById("container");
       let div = document.createElement("div");
@@ -113,6 +136,19 @@ export default {
       email.name = "email[]";
       email.placeholder = "Email";
       div.append(email);
+
+      let select = document.createElement("select");
+      select.name = 'category[]';
+      div.append(select);
+        // let arrayv= [this.categories];
+        // let arrayt = [1,2];
+        for (var j = 0; j < this.categories.length; j++) {
+
+            // let option = document.createElement("option");
+            // option.value = arrayv[j];
+            // option.text = arrayt[j];
+            // select.appendChild(option);
+            }
     },
   },
 };

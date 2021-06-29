@@ -14,7 +14,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import PaxCard from "../components/PaxCard.vue";
 import ApiService from "../services/api.services";
 

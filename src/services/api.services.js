@@ -4,4 +4,9 @@ export default class ApiService {
     getAll(){
         return fetch(`http://projet:8080/Project_ski/API/`)
     }
+
+    getCategory(){
+        return fetch(`http://projet:8080/Project_ski/API/category`)
+    }
+
 }

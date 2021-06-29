@@ -8,7 +8,8 @@ $router = new AltoRouter();
 $router->setBasePath('Project_ski/API/');
 
 //Map a route to a target
-$router->map('GET', '/', 'ControllerCategory#selectcategory#ControllerParticipant#getAll', 'homepage');
+$router->map('GET', '/', 'ControllerParticipant#getAll', 'homepage');
+$router->map('GET', '/category', 'ControllerCategory#selectcategory');
 $router->map('POST', '/insert', 'ControllerParticipant#insertParticipant#ControllerTournament#insertTournament#ControllerParticipant#exportExcel');
 $router->map('POST', '/import', 'ControllerTrial#insertExcel');
 // match will do strict type checks on a pattern
