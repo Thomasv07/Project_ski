@@ -1,40 +1,54 @@
 <template>
   <div class="home">
-    
-    <p>Home</p>
+    <h1>Classement:</h1>
+    <PaxCard
+      v-for="participant in data"
+      :key="participant.id_participant"
+      :picture="participant.picture"
+      :number_sign="participant.number_sign"
+      :firstname="participant.firstname"
+      :lastname="participant.lastname"
+    />
     
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import PaxCard from "../components/PaxCard.vue";
 import ApiService from "../services/api.services";
-
 
 
 const apiservice = new ApiService();
 
 export default {
-name: "Home",
-components: {
+  name: "Home",
+    props: {
+    picture: String,
+    number_sign: String,
+    firstname: String,
+    lastname: String
+  },
+  components: {
+    PaxCard
+  },
 
-},
-props: {
-firstname: String,
-lastname: String,
-},
-data() {
-return {
-data: null,
-};
-},
-methods: {
-async getAll(pax) {
-const res = await apiservice.getAll(pax);
-const data = await res.json();
-this.data = data.results;
-},
-},
+  data() {
+    return {
+      data: null,
+    };
+  },
+  mounted() {
+    this.getAll();
+  },
+  methods: {
+    async getAll() {
+      const res = await apiservice.getAll();
+      const data = await res.json();
+      this.data = data;
+     
+    },
+  },
 };
 </script>
 
