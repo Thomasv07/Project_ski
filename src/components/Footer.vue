@@ -21,9 +21,9 @@
       </div>
       <p>
         Snow Generations, l’histoire faite dengagement, de partage et
-        d'innovation. 17000 moniteurs Snow Generation autour de la France, réunis
-        autour des mêmes valeurs. Rendant la montagne accessible à tous, Snow
-        Generation accueille tous le monde dans des compétions pour tous.
+        d'innovation. 17000 moniteurs Snow Generation autour de la France,
+        réunis autour des mêmes valeurs. Rendant la montagne accessible à tous,
+        Snow Generation accueille tous le monde dans des compétions pour tous.
       </p>
     </div>
     <div class="trait"></div>
@@ -60,12 +60,10 @@ export default {
   text-decoration: underline;
 }
 .container {
-    
   display: flex;
   justify-content: space-around;
 }
 .evenement {
-    
   width: 200px;
   color: white;
 }
@@ -84,37 +82,34 @@ li::before {
   margin-left: -1em;
 }
 .discipline {
-
   width: 200px;
   color: white;
 }
 .trait {
-    margin-top: 35px;
+  margin-top: 35px;
   margin-left: 5%;
   width: 90%;
   height: 2px;
   background: white;
 }
 p {
-    margin-top: 35px;
+  margin-top: 35px;
   width: 30vw;
   color: white;
 }
 .droit {
-    margin-top: 35px;
-    margin-left: 200px;
+  margin-top: 35px;
+  margin-left: 200px;
   width: 55vw;
 }
 .er {
   display: flex;
-  
 }
 .montagne {
-    margin-left: 15px;
+  margin-left: 15px;
   width: 90px;
 }
 h3 {
-    
   margin-left: 15px;
 }
 </style>

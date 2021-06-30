@@ -9,7 +9,6 @@
       :firstname="participant.firstname"
       :lastname="participant.lastname"
     />
-    
   </div>
 </template>
 
@@ -18,19 +17,18 @@
 import PaxCard from "../components/PaxCard.vue";
 import ApiService from "../services/api.services";
 
-
 const apiservice = new ApiService();
 
 export default {
   name: "Home",
-    props: {
+  props: {
     picture: String,
     number_sign: String,
     firstname: String,
-    lastname: String
+    lastname: String,
   },
   components: {
-    PaxCard
+    PaxCard,
   },
 
   data() {
@@ -46,12 +44,9 @@ export default {
       const res = await apiservice.getAll();
       const data = await res.json();
       this.data = data;
-     
     },
   },
 };
 </script>
 
-<style scoped>
-  
-</style>
+<style scoped></style>

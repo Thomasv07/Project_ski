@@ -1,6 +1,6 @@
 <template>
   <div class="Pax">
-    <img v-bind:src="'../medias/'+picture" :alt="number_sign"/>
+    <img v-bind:src="'../medias/' + picture" :alt="number_sign" />
     <h2>{{ firstname }}</h2>
     <h2>{{ lastname }}</h2>
   </div>
@@ -13,7 +13,7 @@ export default {
     picture: String,
     number_sign: String,
     firstname: String,
-    lastname: String
+    lastname: String,
   },
 };
 </script>
