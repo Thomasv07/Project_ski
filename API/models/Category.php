@@ -1,5 +1,5 @@
 <?php
-class Category
+class Category implements JsonSerializable
 {
     private $id_category;
     private $type;
@@ -52,5 +52,12 @@ class Category
             $this->type = $type;
         }
     }
-
+    public function jsonSerialize()
+    {
+        return 
+        [
+            'id_category' => $this->id_category,
+            'type' => $this->type,
+        ];
+    }
 }
