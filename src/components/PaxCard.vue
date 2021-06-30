@@ -1,8 +1,8 @@
 <template>
   <div class="Pax">
-    <img v-bind:src="'../medias/' + picture" :alt="number_sign" />
-    <h2>{{ firstname }}</h2>
-    <h2>{{ lastname }}</h2>
+    <img v-bind:src="'../medias/'+picture" :alt="number_sign"/>
+    <p>{{ firstname }}</p>
+    <p>{{ lastname }}</p>
   </div>
 </template>
 

@@ -22,7 +22,13 @@
           <div class="titlecat">
             <p>Ajouter des participants :</p>
             <select name="category[]" id="category">
-              <option value=""></option>
+              <option
+                v-for="category in categories"
+                :key="category.id_category"
+                :value="category.id_category"
+              >
+                {{ category.type }}
+              </option>
             </select>
           </div>
           <div class="allinput">
@@ -90,9 +96,19 @@ export default {
   name: "Export",
   components: {},
   data() {
-    return {};
+    return {
+      categories: null,
+    };
+  },
+  mounted() {
+    this.getSelect();
   },
   methods: {
+    async getSelect() {
+      const res = await apiservice.getSelect();
+      const data = await res.json();
+      this.categories = data;
+    },
     BtnPax: function () {
       var container = document.getElementById("container");
       let div = document.createElement("div");
@@ -207,6 +223,5 @@ label {
 .picture {
   display: flex;
   justify-content: center;
-  
 }
 </style>
