@@ -10,6 +10,13 @@ class ControllerParticipant
         echo $participant;
     }
 
+    public function getPaxCategory(){
+        $manager = new ParticipantManager();
+        $participant = $manager->listPaxCategory();
+        echo $participant;
+
+    }
+
     public function insertParticipant()
     {
 

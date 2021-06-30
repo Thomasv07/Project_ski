@@ -94,11 +94,11 @@ export default {
     };
   },
   mounted() {
-    this.getCategory();
+    this.getSelect();
   },
   methods: {
-    async getCategory() {
-      const res = await apiservice.getCategory();
+    async getSelect() {
+      const res = await apiservice.getSelect();
       const data = await res.json();
       this.categories = data;
     },
