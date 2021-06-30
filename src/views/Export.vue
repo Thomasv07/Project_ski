@@ -92,6 +92,10 @@
 </template>
 
 <script>
+import ApiService from "../services/api.services";
+
+const apiservice = new ApiService();
+
 export default {
   name: "Export",
   components: {},

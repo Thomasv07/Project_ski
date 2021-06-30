@@ -5,7 +5,9 @@ class ControllerCategory
     public function selectcategory(){
 
         $manager = new CategoryManager();
-        $category = $manager->select();
+        $category = $manager->listCategoryJson();
+
+        echo $category;
 
         
     }

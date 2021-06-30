@@ -1,56 +1,63 @@
 <?php
-class Category
+class Category implements JsonSerializable
 {
-    private $id_category;
-    private $type;
+private $id_category;
+private $type;
 
-    public function __construct(array $datas)
-    {
-        $this->hydrate($datas);
-    }
+public function __construct(array $datas)
+{
+$this->hydrate($datas);
+}
 
-    public function hydrate(array $datas)
-    {
-        foreach ($datas as $key => $value) {
-            $method = 'set' . ucfirst($key);
+public function hydrate(array $datas)
+{
+foreach ($datas as $key => $value) {
+$method = 'set' . ucfirst($key);
 
-            if (method_exists($this, $method)) {
-                $this->$method($value);
-            }
-          
-        }
-    }
+if (method_exists($this, $method)) {
+$this->$method($value);
+}
 
-    //////////GETTER////////////
+}
+}
 
-    public function getId_category()
-    {
-        return $this->id_category;
-    }
+//////////GETTER////////////
 
-    public function getType()
-    {
-        return $this->type;
-    }
+public function getId_category()
+{
+return $this->id_category;
+}
+
+public function getType()
+{
+return $this->type;
+}
 
 
 
-    //////////SETTER////////////
+//////////SETTER////////////
 
-    public function setId_category($id_category)
-    {
-        $id_category = (int) $id_category;
+public function setId_category($id_category)
+{
+$id_category = (int) $id_category;
 
-        if ($id_category > 0) {
-            $this->id_category = $id_category;
-        }
-    }
+if ($id_category > 0) {
+$this->id_category = $id_category;
+}
+}
 
-    public function setType($type)
-    {
-        if (is_string($type)) {
-            $this->type = $type;
-        }
-    }
-
+public function setType($type)
+{
+if (is_string($type)) {
+$this->type = $type;
+}
+}
+public function jsonSerialize()
+{
+return
+[
+'id_category' => $this->id_category,
+'type' => $this->type,
+];
+}
 }
