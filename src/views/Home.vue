@@ -19,7 +19,7 @@
       :firstname="participant.firstname"
       :lastname="participant.lastname"/></div>
       </div>
-
+<h2>M2</h2>
 
     <!-- <div>
           <PaxCard
