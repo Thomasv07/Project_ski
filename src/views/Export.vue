@@ -80,13 +80,17 @@
             />
           </div>
 
-          <div id="container"></div>
-          <button type="button" @click="BtnPax" id="add">
+          <div class="container" id="container"></div>
+          <div class="addpax">
+            <button type="button" @click="BtnPax" id="add">
             Ajouter un participant
           </button>
+          </div>
         </div>
       </div>
-      <input type="submit" name="submit" value="Valider" />
+      <div class="submit">
+        <input type="submit" name="submit" value="Valider" />
+      </div>
     </form>
   </div>
 </template>
@@ -183,7 +187,15 @@ h2::after {
   width: 150px;
   margin-top: 250px;
 }
-
+input:placeholder-shown {
+  border: 2px solid red;
+}
+input[type=text]:valid {
+  border: 2px solid green;
+}
+.input2 {
+  padding: 5px 5px 5px 5px;
+}
 label {
   display: flex;
   justify-content: center;
@@ -212,8 +224,7 @@ label {
   display: flex;
   flex-direction: column;
 }
-.input2 {
-}
+
 .firstinput {
   display: flex;
   justify-content: space-around;
@@ -227,5 +238,15 @@ label {
 .picture {
   display: flex;
   justify-content: center;
+  margin-top: 75px;
+}
+.addpax {
+  display: flex;
+  justify-content: center;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 50px 0;
 }
 </style>

@@ -3,23 +3,27 @@
     <h1>Classement:</h1>
     <div id="general">
       <h2>Classement général:</h2>
-    <PaxCard
-      v-for="participant in participants"
-      :key="participant.id_participant"
-      :picture="participant.picture"
-      :number_sign="participant.number_sign"
-      :firstname="participant.firstname"
-      :lastname="participant.lastname"
-    />
+      <PaxCard
+        v-for="participant in participants"
+        :key="participant.id_participant"
+        :picture="participant.picture"
+        :number_sign="participant.number_sign"
+        :firstname="participant.firstname"
+        :lastname="participant.lastname"
+      />
     </div>
-      <h2>M1</h2>
-      <div v-for="participant in participants" :key="participant.id_category">
-        <div v-if="participant.id_category == 1" ><PaxCard :picture="participant.picture"
-      :number_sign="participant.number_sign"
-      :firstname="participant.firstname"
-      :lastname="participant.lastname"/></div>
+    <h2>M1</h2>
+    <div v-for="participant in participants" :key="participant.id_category">
+      <div v-if="participant.id_category == 1">
+        <PaxCard
+          :picture="participant.picture"
+          :number_sign="participant.number_sign"
+          :firstname="participant.firstname"
+          :lastname="participant.lastname"
+        />
       </div>
-<h2>M2</h2>
+    </div>
+    <h2>M2</h2>
 
     <!-- <div>
           <PaxCard
@@ -57,7 +61,7 @@ export default {
   data() {
     return {
       participants: null,
-      categories : null
+      categories: null,
     };
   },
   mounted() {
@@ -69,14 +73,12 @@ export default {
       const res = await apiservice.getAll();
       const data = await res.json();
       this.participants = data;
-     
     },
-    async getCategory(){
+    async getCategory() {
       const res = await apiservice.getCategory();
       const data = await res.json();
       this.categories = data;
-    
-    }
+    },
   },
 };
 </script>
