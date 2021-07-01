@@ -13,4 +13,7 @@ export default class ApiService {
         return fetch(`http://projet:8080/Project_ski/API/category`);
     }
 
+  getCategory() {
+    return fetch(`http://localhost:8080/Project_ski/API/category`);
+  }
 }
