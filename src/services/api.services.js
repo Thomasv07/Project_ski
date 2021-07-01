@@ -9,11 +9,8 @@ export default class ApiService {
         return fetch(`http://projet:8080/Project_ski/API/select`);
     }
 
-    getCategory(){
-        return fetch(`http://projet:8080/Project_ski/API/category`);
+    sendData(){
+    fetch("http://projet:8080/Project_ski/API/insert");
     }
-
-  getCategory() {
-    return fetch(`http://localhost:8080/Project_ski/API/category`);
-  }
+  
 }

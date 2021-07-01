@@ -2,7 +2,11 @@
   <div class="export">
     <h2>Création d'événement</h2>
 
-    <form action="./insert" method="POST" enctype="multipart/form-data">
+    <form
+      @submit="checkForm"
+      method="POST"
+      enctype="multipart/form-data"
+    >
       <div class="twobox">
         <div class="firstcard">
           <div class="input">
@@ -83,8 +87,8 @@
           <div class="container" id="container"></div>
           <div class="addpax">
             <button type="button" @click="BtnPax" id="add">
-            Ajouter un participant
-          </button>
+              Ajouter un participant
+            </button>
           </div>
         </div>
       </div>
@@ -106,16 +110,33 @@ export default {
   data() {
     return {
       categories: null,
+      formData: {}
     };
   },
   mounted() {
     this.getSelect();
+    this.checkForm();
   },
   methods: {
     async getSelect() {
       const res = await apiservice.getSelect();
       const data = await res.json();
       this.categories = data;
+    },
+    async checkForm() {
+
+      const formData = new FormData();
+
+      const requestOptions = {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({formData}),
+      };
+
+      await fetch(sendData(), requestOptions)
+        .then((response) => response.json()); 
+        console.log(response);
     },
     BtnPax: function () {
       var container = document.getElementById("container");
@@ -200,7 +221,7 @@ h2::after {
 input:placeholder-shown {
   border: 2px solid red;
 }
-input[type=text]:valid {
+input[type="text"]:valid {
   border: 2px solid green;
 }
 .input2 {
