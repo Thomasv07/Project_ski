@@ -122,17 +122,15 @@ export default {
       let div = document.createElement("div");
       container.prepend(div);
 
-      let inputImg = document.createElement("input");
-      inputImg.type = "file";
-      inputImg.name = "picture[]";
-      inputImg.accept = ".jpg, .jpeg, .gif, .png";
-      div.prepend(inputImg);
-
-      let firstname = document.createElement("input");
-      firstname.type = "text";
-      firstname.name = "firstname[]";
-      firstname.placeholder = "Prénom";
-      div.append(firstname);
+      let select = document.createElement("select");
+      select.name = "category[]";
+      div.append(select);
+      this.categories.forEach((element) => {
+        let option = document.createElement("option");
+        option.value = element.id_category;
+        option.text = element.type;
+        select.appendChild(option);
+      });
 
       let lastname = document.createElement("input");
       lastname.type = "text";
@@ -140,16 +138,28 @@ export default {
       lastname.placeholder = "Nom";
       div.append(lastname);
 
-      let date = document.createElement("input");
-      date.type = "date";
-      date.name = "dob[]";
-      div.append(date);
+      let firstname = document.createElement("input");
+      firstname.type = "text";
+      firstname.name = "firstname[]";
+      firstname.placeholder = "Prénom";
+      div.append(firstname);
 
       let email = document.createElement("input");
       email.type = "text";
       email.name = "email[]";
       email.placeholder = "Email";
       div.append(email);
+
+      let date = document.createElement("input");
+      date.type = "date";
+      date.name = "dob[]";
+      div.append(date);
+
+      let inputImg = document.createElement("input");
+      inputImg.type = "file";
+      inputImg.name = "picture[]";
+      inputImg.accept = ".jpg, .jpeg, .gif, .png";
+      div.append(inputImg);
     },
   },
 };
