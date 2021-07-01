@@ -12,9 +12,16 @@
         :lastname="participant.lastname"
       />
     </div>
+<<<<<<< HEAD
     <h2>M1</h2>
     <div v-for="participant in participants" :key="participant.id_category">
       <div v-if="participant.id_category == 1">
+=======
+    <section v-for="category in categories" :key="category.id_category" >
+    <h2>{{category.type}}</h2>
+    <div v-for="participant in participants" :key="participant.id_category">
+      <div v-if="participant.id_category == participant.id_category <= 3">
+>>>>>>> 73d55381b4caeda739c0e746664e5386f7663742
         <PaxCard
           :picture="participant.picture"
           :number_sign="participant.number_sign"
@@ -23,6 +30,7 @@
         />
       </div>
     </div>
+<<<<<<< HEAD
     <h2>M2</h2>
 
     <!-- <div>
@@ -36,6 +44,9 @@
       :category="participant.id_category"
     />
     </div> -->
+=======
+    </section>
+>>>>>>> 73d55381b4caeda739c0e746664e5386f7663742
   </div>
 </template>
 
@@ -66,7 +77,7 @@ export default {
   },
   mounted() {
     this.getAll();
-    this.getCategory();
+    this.getSelect();
   },
   methods: {
     async getAll() {
@@ -74,8 +85,8 @@ export default {
       const data = await res.json();
       this.participants = data;
     },
-    async getCategory() {
-      const res = await apiservice.getCategory();
+    async getSelect() {
+      const res = await apiservice.getSelect();
       const data = await res.json();
       this.categories = data;
     },
