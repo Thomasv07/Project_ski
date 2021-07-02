@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import PaxCard from "./PaxCard.vue";
+import PaxCard from "../components/PaxCard.vue";
 import ApiService from "../services/api.services";
 
 const apiservice = new ApiService();

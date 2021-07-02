@@ -107,7 +107,7 @@
         </div>
       </div>
       <div class="submit">
-        <input type="submit" name="submit" value="Valider" />
+        <input class="exp" type="submit" name="submit" value="Valider" />
       </div>
     </form>
   </div>
@@ -271,7 +271,7 @@ label {
   padding: 5px;
 }
 .secondcard {
-  background-color: #b2cee5;
+  background-image: url("../assets/neige.jpg");
   width: 50%;
 }
 .titlecat {
@@ -285,13 +285,18 @@ label {
 
 .firstinput {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 15%;
   margin-top: 50px;
 }
 .secondinput {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 15%;
   margin-top: 50px;
+}
+#dob {
+  width: 168.5px;
 }
 .picture {
   display: flex;
@@ -306,5 +311,22 @@ label {
   display: flex;
   justify-content: center;
   margin: 50px 0 50px 0;
+}
+#add {
+  background-color: #c7260c;
+  border: 3px solid #c7260c;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 10px 50px 10px 50px;
+}
+.exp {
+  background-color: #c7260c;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 50px 10px 50px;
 }
 </style>
