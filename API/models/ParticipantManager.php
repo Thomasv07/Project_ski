@@ -68,6 +68,19 @@ class ParticipantManager extends Model
         return json_encode($list);
     }
 
+    public function listPaxCategory()
+    {
+        $db = $this->getDb();
+
+        $list = [];
+        $listing = $db->query('SELECT * FROM `participant` LIMIT 3');
+        while ($data = $listing->fetch(PDO::FETCH_ASSOC)) {
+            $list[] = new Participant($data);
+        }
+        $listing->closeCursor();
+        return json_encode($list);
+    }
+
     public function listAllExcel()
     {
         $db = $this->getDb();

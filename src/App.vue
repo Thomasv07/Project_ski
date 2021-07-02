@@ -1,21 +1,18 @@
 <template>
   <div id="app">
-    <component :is="layout">
-      <router-view /> 
-    </component> 
+    <Header />
+    <router-view />
+    <Footer />
   </div>
 </template>
-
 <script>
-
-const default_layout = "default";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
-  computed: {
-    layout() {
-      return (this.$router.meta.layout || default_layout) + '-layout';
-    }
-  }
+  components: {
+    Header,
+    Footer,
+  },
 };
 </script>
-
