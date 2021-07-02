@@ -83,8 +83,8 @@
           <div class="container" id="container"></div>
           <div class="addpax">
             <button type="button" @click="BtnPax" id="add">
-            Ajouter un participant
-          </button>
+              Ajouter un participant
+            </button>
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@ h2::after {
 input:placeholder-shown {
   border: 2px solid red;
 }
-input[type=text]:valid {
+input[type="text"]:valid {
   border: 2px solid green;
 }
 .input2 {
@@ -238,13 +238,13 @@ label {
 .firstinput {
   display: flex;
   justify-content: space-between;
-  padding: 0 175px;
+  padding: 0 15%;
   margin-top: 50px;
 }
 .secondinput {
   display: flex;
   justify-content: space-between;
-  padding: 0 175px;
+  padding: 0 15%;
   margin-top: 50px;
 }
 #dob {
@@ -266,7 +266,7 @@ label {
 }
 #add {
   background-color: #c7260c;
-  border: 3px solid  #c7260c;
+  border: 3px solid #c7260c;
   color: white;
   font-weight: bold;
   border-radius: 10px;

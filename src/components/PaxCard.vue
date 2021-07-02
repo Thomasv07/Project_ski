@@ -1,6 +1,6 @@
 <template>
   <div class="Pax">
-    <img v-bind:src="'@/assets/'+ picture" :alt="number_sign"/>
+    <img v-bind:src="'@/assets/' + picture" :alt="number_sign" />
     <p>{{ firstname }}</p>
     <p>{{ lastname }}</p>
   </div>
