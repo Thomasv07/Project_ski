@@ -1,28 +1,13 @@
 <template>
   <div class="home">
+    <Slider/>
     <h1>Classement:</h1>
     <div id="general">
       <h2>Classement général:</h2>
-      <PaxCard
-        v-for="participant in participants"
-        :key="participant.id_participant"
-        :picture="participant.picture"
-        :number_sign="participant.number_sign"
-        :firstname="participant.firstname"
-        :lastname="participant.lastname"
-      />
-    </div>
-<<<<<<< HEAD
-    <h2>M1</h2>
-    <div v-for="participant in participants" :key="participant.id_category">
-      <div v-if="participant.id_category == 1">
-=======
-    <section v-for="category in categories" :key="category.id_category" >
-    <h2>{{category.type}}</h2>
-    <div v-for="participant in participants" :key="participant.id_category">
-      <div v-if="participant.id_category == participant.id_category <= 3">
->>>>>>> 73d55381b4caeda739c0e746664e5386f7663742
+      <div class="paxgen">
         <PaxCard
+          v-for="participant in participants"
+          :key="participant.id_participant"
           :picture="participant.picture"
           :number_sign="participant.number_sign"
           :firstname="participant.firstname"
@@ -30,23 +15,23 @@
         />
       </div>
     </div>
-<<<<<<< HEAD
-    <h2>M2</h2>
-
-    <!-- <div>
-          <PaxCard
-      v-for="participant in categories"
-      :key="participant.id_category"
-      :picture="participant.picture"
-      :number_sign="participant.number_sign"
-      :firstname="participant.firstname"
-      :lastname="participant.lastname"
-      :category="participant.id_category"
-    />
-    </div> -->
-=======
+    <section
+      id="diffcat"
+      v-for="category in categories"
+      :key="category.id_category"
+    >
+      <h2>{{ category.type }}</h2>
+      <div v-for="participant in participants" :key="participant.id_category">
+        <PaxCard
+          v-if="participant.id_category == participant.id_category"
+          :id_category="participant.id_category"
+          :picture="participant.picture"
+          :number_sign="participant.number_sign"
+          :firstname="participant.firstname"
+          :lastname="participant.lastname"
+        />
+      </div>
     </section>
->>>>>>> 73d55381b4caeda739c0e746664e5386f7663742
   </div>
 </template>
 
@@ -54,6 +39,7 @@
 // @ is an alias to /src
 import PaxCard from "../components/PaxCard.vue";
 import ApiService from "../services/api.services";
+import Slider from "../components/Slider.vue";
 
 const apiservice = new ApiService();
 
@@ -67,6 +53,7 @@ export default {
   },
   components: {
     PaxCard,
+    Slider,
   },
 
   data() {
@@ -94,4 +81,54 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+progress {
+  top: 150px;
+  transform: rotate(90deg);
+  right: 0;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  flex-direction: column;
+}
+h2::after {
+  content: " ";
+  width: 35%;
+  height: 2px;
+  background: rgb(0, 0, 0);
+}
+#general {
+  border: 2px solid #42b983;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  width: 40%;
+  margin-left: 50px;
+  height: 500px;
+  overflow: auto;
+}
+.Pax {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 10px;
+}
+#diffcat {
+  border: 2px solid #42b983;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+</style>

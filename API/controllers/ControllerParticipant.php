@@ -19,10 +19,12 @@ class ControllerParticipant
 
     public function insertParticipant()
     {
-
-        $nb = count($_POST['lastname']);
+        $json = file_get_contents('php://input');
+        $data = json_decode($json);
+        var_dump($data->lastname);
+        $nb = count($data->lastname);
         for ($i = 0; $i < $nb; $i++) {
-            $insert = new Participant(array('firstname' => $_POST['firstname'][$i], 'lastname' => $_POST['lastname'][$i], 'dob' => $_POST['dob'][$i], 'email' => $_POST['email'][$i], 'picture' => $_FILES['picture']['name'][$i], 'id_category' => $_POST['category'][$i]));
+            $insert = new Participant(array('firstname' => $data->firstname[$i], 'lastname' => $data->lastname[$i], 'dob' => $data->dob[$i], 'email' => $data->email[$i], 'picture' => $_FILES['picture']['name'][$i], 'id_category' => $data->category[$i]));
 
             $manager = new ParticipantManager();
             $participant = $manager->insertionParticipant($insert);
@@ -31,13 +33,16 @@ class ControllerParticipant
 
     public function exportExcel()
     {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json);
+
         $manager = new ParticipantManager();
         $participants = $manager->listAllExcel();
 
         $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setCellValue('C1', $_POST['city'] . '-' . $_POST['date']);
+        $sheet->setCellValue('C1', $data->city . '-' . $data->date);
         $sheet->setCellValue('A3', 'Numéro de dossard');
         $sheet->setCellValue('B3', 'Nom');
         $sheet->setCellValue('C3', 'Prénom');
@@ -53,8 +58,8 @@ class ControllerParticipant
         }
 
         $writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save($_POST['city'] . '-' . $_POST['date'] . '.xlsx');
+        $writer->save($data->city . '-' . $data->date . '.xlsx');
 
-        echo "<meta http-equiv='refresh' content='0;url=" . $_POST['city'] . '-' . $_POST['date'] . ".xlsx'/>";
+        echo "<meta http-equiv='refresh' content='0;url=" . $data->city . '-' . $data->date . ".xlsx'/>";
     }
 }

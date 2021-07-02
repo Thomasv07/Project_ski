@@ -8,9 +8,4 @@ export default class ApiService {
     getSelect(){
         return fetch(`http://projet:8080/Project_ski/API/select`);
     }
-
-    sendData(){
-    fetch("http://projet:8080/Project_ski/API/insert");
-    }
-  
 }

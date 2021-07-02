@@ -4,6 +4,7 @@
 
     <form
       @submit="checkForm"
+      action="/insert"
       method="POST"
       enctype="multipart/form-data"
     >
@@ -12,6 +13,7 @@
           <div class="input">
             <label for="tournament">Evenement:</label>
             <input
+              v-model="form.city"
               class="epreuve"
               type="text"
               name="city"
@@ -19,13 +21,20 @@
               placeholder="Nom de l'épreuve"
               required
             />
-            <input class="epreuve" type="date" name="date" id="date" required />
+            <input
+              v-model="form.date"
+              class="epreuve"
+              type="date"
+              name="date"
+              id="date"
+              required
+            />
           </div>
         </div>
         <div class="secondcard">
           <div class="titlecat">
             <p>Ajouter des participants :</p>
-            <select name="category[]" id="category">
+            <select v-model="form.category" name="category[]" id="category">
               <option
                 v-for="category in categories"
                 :key="category.id_category"
@@ -38,6 +47,7 @@
           <div class="allinput">
             <div class="firstinput">
               <input
+                v-model="form.lastname"
                 class="input2"
                 type="text"
                 name="lastname[]"
@@ -46,6 +56,7 @@
                 required
               />
               <input
+                v-model="form.email"
                 class="input2"
                 type="text"
                 name="email[]"
@@ -56,6 +67,7 @@
             </div>
             <div class="secondinput">
               <input
+                v-model="form.firstname"
                 class="input2"
                 type="text"
                 name="firstname[]"
@@ -64,6 +76,7 @@
                 required
               />
               <input
+                v-model="form.dob"
                 class="input2"
                 type="date"
                 name="dob[]"
@@ -75,6 +88,7 @@
           <div class="picture">
             <label for="imgInp"><img src="../assets/tof.png" /></label>
             <input
+              @change="processFile($event)"
               class="input2"
               hidden
               type="file"
@@ -110,12 +124,20 @@ export default {
   data() {
     return {
       categories: null,
-      formData: {}
+      form: [{
+        city: "",
+        date: "",
+        category: [],
+        firstname: [],
+        lastname: [],
+        email: [],
+        dob: [],
+        picture: []
+      }],
     };
   },
   mounted() {
     this.getSelect();
-    this.checkForm();
   },
   methods: {
     async getSelect() {
@@ -123,20 +145,20 @@ export default {
       const data = await res.json();
       this.categories = data;
     },
-    async checkForm() {
-
-      const formData = new FormData();
-
+    processFile(event) {
+    this.picture = event.target.files[0]
+  },
+    checkForm: function (e) {
       const requestOptions = {
         method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({formData}),
+        headers: { "Content-Type": "application/json","Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",  "Access-Control-Allow-Origin": '*' },
+        mode: 'cors',
+        body: JSON.stringify(this.form),
+        
       };
-
-      await fetch(sendData(), requestOptions)
-        .then((response) => response.json()); 
-        console.log(response);
+      fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
+      e.preventDefault();
+      console.log(this.form);
     },
     BtnPax: function () {
       var container = document.getElementById("container");
@@ -145,6 +167,7 @@ export default {
 
       let select = document.createElement("select");
       select.name = "category[]";
+      select.setAttribute("v-model", "form.category");
       div.append(select);
       this.categories.forEach((element) => {
         let option = document.createElement("option");
@@ -157,23 +180,27 @@ export default {
       lastname.type = "text";
       lastname.name = "lastname[]";
       lastname.placeholder = "Nom";
+      lastname.setAttribute('v-model','form.lastname');
       div.append(lastname);
 
       let firstname = document.createElement("input");
       firstname.type = "text";
       firstname.name = "firstname[]";
       firstname.placeholder = "Prénom";
+      firstname.setAttribute('v-model','form.firstname');
       div.append(firstname);
 
       let email = document.createElement("input");
       email.type = "text";
       email.name = "email[]";
       email.placeholder = "Email";
+      email.setAttribute('v-model','form.email');
       div.append(email);
 
       let date = document.createElement("input");
       date.type = "date";
       date.name = "dob[]";
+      date.setAttribute('v-model','form.dob');
       div.append(date);
 
       let inputImg = document.createElement("input");
