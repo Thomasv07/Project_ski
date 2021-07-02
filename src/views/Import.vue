@@ -7,11 +7,11 @@
         <label class="addfiles" for="addfiles">Choisir un fichier</label>
         <p><span>Fichier prise en charge</span> : xls, csv, xlsx</p>
         <input
-        class="btnimport"
-        type="submit"
-        name="import_file_btn"
-        value="Importer"
-      />
+          class="btnimport"
+          type="submit"
+          name="import_file_btn"
+          value="Importer"
+        />
       </div>
     </form>
   </div>
@@ -58,7 +58,5 @@ span {
   border-radius: 10px;
   padding: 10px 50px 10px 50px;
   margin: 75px 0 150px 0;
-  
 }
-
 </style>

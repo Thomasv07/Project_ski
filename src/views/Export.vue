@@ -2,12 +2,18 @@
   <div class="export">
     <h2>Création d'événement</h2>
 
-    <form action="./insert" method="POST" enctype="multipart/form-data">
+    <form
+      @submit="checkForm"
+      action="/insert"
+      method="POST"
+      enctype="multipart/form-data"
+    >
       <div class="twobox">
         <div class="firstcard">
           <div class="input">
             <label for="tournament">Evenement:</label>
             <input
+              v-model="form.city"
               class="epreuve"
               type="text"
               name="city"
@@ -15,13 +21,20 @@
               placeholder="Nom de l'épreuve"
               required
             />
-            <input class="epreuve" type="date" name="date" id="date" required />
+            <input
+              v-model="form.date"
+              class="epreuve"
+              type="date"
+              name="date"
+              id="date"
+              required
+            />
           </div>
         </div>
         <div class="secondcard">
           <div class="titlecat">
             <p>Ajouter des participants :</p>
-            <select name="category[]" id="category">
+            <select v-model="form.category" name="category[]" id="category">
               <option
                 v-for="category in categories"
                 :key="category.id_category"
@@ -34,6 +47,7 @@
           <div class="allinput">
             <div class="firstinput">
               <input
+                v-model="form.lastname"
                 class="input2"
                 type="text"
                 name="lastname[]"
@@ -42,6 +56,7 @@
                 required
               />
               <input
+                v-model="form.email"
                 class="input2"
                 type="text"
                 name="email[]"
@@ -52,6 +67,7 @@
             </div>
             <div class="secondinput">
               <input
+                v-model="form.firstname"
                 class="input2"
                 type="text"
                 name="firstname[]"
@@ -60,6 +76,7 @@
                 required
               />
               <input
+                v-model="form.dob"
                 class="input2"
                 type="date"
                 name="dob[]"
@@ -71,6 +88,7 @@
           <div class="picture">
             <label for="imgInp"><img src="../assets/tof.png" /></label>
             <input
+              @change="processFile($event)"
               class="input2"
               hidden
               type="file"
@@ -80,13 +98,17 @@
             />
           </div>
 
-          <div id="container"></div>
-          <button type="button" @click="BtnPax" id="add">
-            Ajouter un participant
-          </button>
+          <div class="container" id="container"></div>
+          <div class="addpax">
+            <button type="button" @click="BtnPax" id="add">
+              Ajouter un participant
+            </button>
+          </div>
         </div>
       </div>
-      <input type="submit" name="submit" value="Valider" />
+      <div class="submit">
+        <input class="exp" type="submit" name="submit" value="Valider" />
+      </div>
     </form>
   </div>
 </template>
@@ -98,13 +120,20 @@ const apiservice = new ApiService();
 
 export default {
   name: "Export",
-  props: {
-    type: String,
-  },
   components: {},
   data() {
     return {
       categories: null,
+      form: [{
+        city: "",
+        date: "",
+        category: [],
+        firstname: [],
+        lastname: [],
+        email: [],
+        dob: [],
+        picture: []
+      }],
     };
   },
   mounted() {
@@ -116,42 +145,29 @@ export default {
       const data = await res.json();
       this.categories = data;
     },
+    processFile(event) {
+    this.picture = event.target.files[0]
+  },
+    checkForm: function (e) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json","Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",  "Access-Control-Allow-Origin": '*' },
+        mode: 'cors',
+        body: JSON.stringify(this.form),
+        
+      };
+      fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
+      e.preventDefault();
+      console.log(this.form);
+    },
     BtnPax: function () {
       var container = document.getElementById("container");
       let div = document.createElement("div");
       container.prepend(div);
 
-      let inputImg = document.createElement("input");
-      inputImg.type = "file";
-      inputImg.name = "picture[]";
-      inputImg.accept = ".jpg, .jpeg, .gif, .png";
-      div.prepend(inputImg);
-
-      let firstname = document.createElement("input");
-      firstname.type = "text";
-      firstname.name = "firstname[]";
-      firstname.placeholder = "Prénom";
-      div.append(firstname);
-
-      let lastname = document.createElement("input");
-      lastname.type = "text";
-      lastname.name = "lastname[]";
-      lastname.placeholder = "Nom";
-      div.append(lastname);
-
-      let date = document.createElement("input");
-      date.type = "date";
-      date.name = "dob[]";
-      div.append(date);
-
-      let email = document.createElement("input");
-      email.type = "text";
-      email.name = "email[]";
-      email.placeholder = "Email";
-      div.append(email);
-
       let select = document.createElement("select");
       select.name = "category[]";
+      select.setAttribute("v-model", "form.category");
       div.append(select);
       this.categories.forEach((element) => {
         let option = document.createElement("option");
@@ -159,6 +175,39 @@ export default {
         option.text = element.type;
         select.appendChild(option);
       });
+
+      let lastname = document.createElement("input");
+      lastname.type = "text";
+      lastname.name = "lastname[]";
+      lastname.placeholder = "Nom";
+      lastname.setAttribute('v-model','form.lastname');
+      div.append(lastname);
+
+      let firstname = document.createElement("input");
+      firstname.type = "text";
+      firstname.name = "firstname[]";
+      firstname.placeholder = "Prénom";
+      firstname.setAttribute('v-model','form.firstname');
+      div.append(firstname);
+
+      let email = document.createElement("input");
+      email.type = "text";
+      email.name = "email[]";
+      email.placeholder = "Email";
+      email.setAttribute('v-model','form.email');
+      div.append(email);
+
+      let date = document.createElement("input");
+      date.type = "date";
+      date.name = "dob[]";
+      date.setAttribute('v-model','form.dob');
+      div.append(date);
+
+      let inputImg = document.createElement("input");
+      inputImg.type = "file";
+      inputImg.name = "picture[]";
+      inputImg.accept = ".jpg, .jpeg, .gif, .png";
+      div.append(inputImg);
     },
   },
 };
@@ -196,7 +245,15 @@ h2::after {
   width: 150px;
   margin-top: 250px;
 }
-
+input:placeholder-shown {
+  border: 2px solid red;
+}
+input[type="text"]:valid {
+  border: 2px solid green;
+}
+.input2 {
+  padding: 5px 5px 5px 5px;
+}
 label {
   display: flex;
   justify-content: center;
@@ -214,7 +271,7 @@ label {
   padding: 5px;
 }
 .secondcard {
-  background-color: #b2cee5;
+  background-image: url("../assets/neige.jpg");
   width: 50%;
 }
 .titlecat {
@@ -225,20 +282,51 @@ label {
   display: flex;
   flex-direction: column;
 }
-.input2 {
-}
+
 .firstinput {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 15%;
   margin-top: 50px;
 }
 .secondinput {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 15%;
   margin-top: 50px;
+}
+#dob {
+  width: 168.5px;
 }
 .picture {
   display: flex;
   justify-content: center;
+  margin-top: 75px;
+}
+.addpax {
+  display: flex;
+  justify-content: center;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 50px 0;
+}
+#add {
+  background-color: #c7260c;
+  border: 3px solid #c7260c;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 10px 50px 10px 50px;
+}
+.exp {
+  background-color: #c7260c;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 50px 10px 50px;
 }
 </style>

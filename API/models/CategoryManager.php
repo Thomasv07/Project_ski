@@ -17,15 +17,15 @@ class CategoryManager extends Model
 
     public function listCategoryJson(){
         $db = $this->getDb();
-
+        
         $list = [];
         $listing = $db->query('SELECT * FROM `category`');
         while ($data = $listing->fetch(PDO::FETCH_ASSOC)) {
-            $list[] = new Category($data);
-        } 
-      
+        $list[] = new Category($data);
+        }
+        
         $listing->closeCursor();
         return json_encode($list);
-       
-    }
+        
+        }
 }
