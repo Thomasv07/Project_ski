@@ -21,9 +21,9 @@ class ControllerParticipant
     {
         $json = file_get_contents('php://input');
         $data = json_decode($json);
-        var_dump($data->lastname);
-        $nb = count($data->lastname);
-        for ($i = 0; $i < $nb; $i++) {
+        var_dump($data);
+        $nb = count($data->firstname);
+        for ($i = 0; $i < $nb; $i++) {    
             $insert = new Participant(array('firstname' => $data->firstname[$i], 'lastname' => $data->lastname[$i], 'dob' => $data->dob[$i], 'email' => $data->email[$i], 'picture' => $_FILES['picture']['name'][$i], 'id_category' => $data->category[$i]));
 
             $manager = new ParticipantManager();

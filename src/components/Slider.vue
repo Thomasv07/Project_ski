@@ -13,19 +13,17 @@
       <div
         class="cardtranslate"
         v-for="category in categories"
-        :key="category.id_category"
-      >
+        :key="category.id_category ">
         <h2>{{ category.type }}</h2>
-        <div v-for="participant in participants" :key="participant.id_category">
-          <div v-if="participant.id_category == participant.id_category <= 3">
+        <div v-for="participant in participants"  :key="participant.id_category"> 
             <div class="paxcardtranslate">
-              <PaxCard
+              <PaxCard v-if="category.id_category == participant.id_category"
+                :id_category="participant.id_category"
                 :picture="participant.picture"
                 :number_sign="participant.number_sign"
                 :firstname="participant.firstname"
                 :lastname="participant.lastname"
-              />
-            </div>
+            />
           </div>
         </div>
       </div>
@@ -60,9 +58,10 @@ export default {
     this.getSelect();
   },
   methods: {
+
     next() {
       console.log(this.index);
-      if (this.index === -1500) {
+      if (this.index === -2500) {
         this.index = 0;
       } else {
         this.index -= 500;
@@ -70,7 +69,7 @@ export default {
     },
     prev() {
       console.log(this.index);
-      if (this.index === -1500) {
+      if (this.index === -2500) {
         this.index = 0;
       } else {
         this.index -= 500;
@@ -137,6 +136,6 @@ export default {
 .btn-right {
   top: 50%;
   right: 5px;
-  transform: translate(-50%);
+  transform: translate(50%);
 }
 </style>
