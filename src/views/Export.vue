@@ -32,73 +32,75 @@
           </div>
         </div>
         <div class="secondcard">
-          <div class="titlecat">
+          <div class="titlecat2">
             <p>Ajouter des participants :</p>
-            <select v-model="form.category" name="category[]" id="category">
-              <option
-                v-for="category in categories"
-                :key="category.id_category"
-                :value="category.id_category"
-              >
-                {{ category.type }}
-              </option>
-            </select>
-          </div>
-          <div class="allinput">
-            <div class="firstinput">
-              <input
-                v-model="form.lastname"
-                class="input2"
-                type="text"
-                name="lastname[]"
-                id="lastname"
-                placeholder="Nom"
-                required
-              />
-              <input
-                v-model="form.email"
-                class="input2"
-                type="text"
-                name="email[]"
-                id="email"
-                placeholder="Email"
-                required
-              />
-            </div>
-            <div class="secondinput">
-              <input
-                v-model="form.firstname"
-                class="input2"
-                type="text"
-                name="firstname[]"
-                id="firstname"
-                placeholder="Prénom"
-                required
-              />
-              <input
-                v-model="form.dob"
-                class="input2"
-                type="date"
-                name="dob[]"
-                id="dob"
-                required
-              />
-            </div>
-          </div>
-          <div class="picture">
-            <label for="imgInp"><img src="../assets/tof.png" /></label>
-            <input
-              @change="processFile($event)"
-              class="input2"
-              hidden
-              type="file"
-              name="picture[]"
-              accept=".jpg, .jpeg, .gif, .png"
-              id="imgInp"
-            />
-          </div>
+            <div class="">
+              <select v-model="form.category" name="category[]" id="category">
+                <option
+                  v-for="category in categories"
+                  :key="category.id_category"
+                  :value="category.id_category"
+                >
+                  {{ category.type }}
+                </option>
+              </select>
 
-          <div class="container" id="container"></div>
+              <div class="allinput">
+                <div class="firstinput">
+                  <input
+                    v-model="form.lastname"
+                    class="input2"
+                    type="text"
+                    name="lastname[]"
+                    id="lastname"
+                    placeholder="Nom"
+                    required
+                  />
+                  <input
+                    v-model="form.email"
+                    class="input2"
+                    type="text"
+                    name="email[]"
+                    id="email"
+                    placeholder="Email"
+                    required
+                  />
+                </div>
+                <div class="secondinput">
+                  <input
+                    v-model="form.firstname"
+                    class="input2"
+                    type="text"
+                    name="firstname[]"
+                    id="firstname"
+                    placeholder="Prénom"
+                    required
+                  />
+                  <input
+                    v-model="form.dob"
+                    class="input2"
+                    type="date"
+                    name="dob[]"
+                    id="dob"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="picture">
+                <label for="imgInp"><img src="../assets/tof.png" /></label>
+                <input
+                  @change="processFile($event)"
+                  class="input2"
+                  hidden
+                  type="file"
+                  name="picture[]"
+                  accept=".jpg, .jpeg, .gif, .png"
+                  id="imgInp"
+                />
+              </div>
+            </div>
+          </div>
+          <div id="container"></div>
           <div class="addpax">
             <button type="button" @click="BtnPax" id="add">
               Ajouter un participant
@@ -124,16 +126,18 @@ export default {
   data() {
     return {
       categories: null,
-      form: [{
-        city: "",
-        date: "",
-        category: [],
-        firstname: [],
-        lastname: [],
-        email: [],
-        dob: [],
-        picture: []
-      }],
+      form: [
+        {
+          city: "",
+          date: "",
+          category: [],
+          firstname: [],
+          lastname: [],
+          email: [],
+          dob: [],
+          picture: [],
+        },
+      ],
     };
   },
   mounted() {
@@ -146,15 +150,18 @@ export default {
       this.categories = data;
     },
     processFile(event) {
-    this.picture = event.target.files[0]
-  },
+      this.picture = event.target.files[0];
+    },
     checkForm: function (e) {
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json","Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",  "Access-Control-Allow-Origin": '*' },
-        mode: 'cors',
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+          "Access-Control-Allow-Origin": "*",
+        },
+        mode: "cors",
         body: JSON.stringify(this.form),
-        
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
@@ -163,11 +170,13 @@ export default {
     BtnPax: function () {
       var container = document.getElementById("container");
       let div = document.createElement("div");
+      div.className = "titlecat";
       container.prepend(div);
 
       let select = document.createElement("select");
       select.name = "category[]";
       select.setAttribute("v-model", "form.category");
+
       div.append(select);
       this.categories.forEach((element) => {
         let option = document.createElement("option");
@@ -175,45 +184,61 @@ export default {
         option.text = element.type;
         select.appendChild(option);
       });
+      let lastnamediv = document.createElement("div");
+      lastnamediv.className = "firstinput";
+      div.append(lastnamediv);
 
       let lastname = document.createElement("input");
       lastname.type = "text";
       lastname.name = "lastname[]";
+      lastname.className = "input2";
       lastname.placeholder = "Nom";
-      lastname.setAttribute('v-model','form.lastname');
-      div.append(lastname);
-
-      let firstname = document.createElement("input");
-      firstname.type = "text";
-      firstname.name = "firstname[]";
-      firstname.placeholder = "Prénom";
-      firstname.setAttribute('v-model','form.firstname');
-      div.append(firstname);
+      lastnamediv.prepend(lastname);
 
       let email = document.createElement("input");
       email.type = "text";
       email.name = "email[]";
+      email.className = "input2";
       email.placeholder = "Email";
-      email.setAttribute('v-model','form.email');
-      div.append(email);
+      email.setAttribute("v-model", "form.email");
+      lastnamediv.append(email);
+
+      let firstnamediv = document.createElement("div");
+      firstnamediv.className = "secondinput";
+      div.append(firstnamediv);
+
+      let firstname = document.createElement("input");
+      firstname.type = "text";
+      firstname.name = "firstname[]";
+      firstname.className = "input2";
+      firstname.placeholder = "Prénom";
+      firstname.setAttribute("v-model", "form.firstname");
+      firstnamediv.append(firstname);
 
       let date = document.createElement("input");
       date.type = "date";
       date.name = "dob[]";
-      date.setAttribute('v-model','form.dob');
-      div.append(date);
+      date.className = "input2";
+      date.id = "dob";
+      date.setAttribute("v-model", "form.dob");
+      firstnamediv.append(date);
+
+      let inputImgdiv = document.createElement("div");
+      inputImgdiv.className = "picture";
+      div.append(inputImgdiv);
 
       let inputImg = document.createElement("input");
       inputImg.type = "file";
       inputImg.name = "picture[]";
+      inputImg.className = "picture";
       inputImg.accept = ".jpg, .jpeg, .gif, .png";
-      div.append(inputImg);
+      inputImgdiv.append(inputImg);
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 h2 {
   display: flex;
   align-items: center;
@@ -246,11 +271,12 @@ h2::after {
   margin-top: 250px;
 }
 input:placeholder-shown {
-  border: 2px solid red;
+  border: 2px solid red !important;
 }
 input[type="text"]:valid {
   border: 2px solid green;
 }
+
 .input2 {
   padding: 5px 5px 5px 5px;
 }
@@ -273,10 +299,22 @@ label {
 .secondcard {
   background-image: url("../assets/neige.jpg");
   width: 50%;
+  overflow: auto;
+  height: 600px;
+}
+.container {
+  width: 100%;
+}
+.titlecat2 {
+  text-align: center;
+  font-size: 30px;
+  height: 500px;
 }
 .titlecat {
   text-align: center;
   font-size: 30px;
+  height: 500px;
+  margin-top: 100px;
 }
 .allinput {
   display: flex;
@@ -301,11 +339,12 @@ label {
 .picture {
   display: flex;
   justify-content: center;
-  margin-top: 75px;
+  margin-top: 50px;
 }
 .addpax {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
 }
 .submit {
   display: flex;
@@ -329,4 +368,5 @@ label {
   border-radius: 10px;
   padding: 10px 50px 10px 50px;
 }
+
 </style>

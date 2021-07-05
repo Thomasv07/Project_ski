@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Slider/>
+    <Slider />
     <h1>Classement:</h1>
     <div id="general">
       <h2>Classement général:</h2>

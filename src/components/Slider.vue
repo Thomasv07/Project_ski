@@ -18,8 +18,9 @@
         <h2>{{ category.type }}</h2>
         <div v-for="participant in participants" :key="participant.id_category">
           <div v-if="participant.id_category == participant.id_category <= 3">
-            <div class="paxcardtranslate">
+            <div class="paxcardtranslatep">
               <PaxCard
+                class="paxcardtranslate"
                 :picture="participant.picture"
                 :number_sign="participant.number_sign"
                 :firstname="participant.firstname"
@@ -138,5 +139,9 @@ export default {
   top: 50%;
   right: 5px;
   transform: translate(-50%);
+}
+.paxcardtranslate {
+  display: flex;
+  flex-direction: row;
 }
 </style>
