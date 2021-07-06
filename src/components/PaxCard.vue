@@ -1,7 +1,7 @@
 <template>
   <div class="Pax">
-    <img v-bind:src="'@/assets/'+ picture" :alt="number_sign"/>
-    <h2>{{id_category}}</h2>
+    <img :src="useImg" :alt="number_sign" />
+    <h2>{{ id_category }}</h2>
     <p>{{ firstname }}</p>
     <p>{{ lastname }}</p>
   </div>
@@ -16,6 +16,11 @@ export default {
     number_sign: String,
     firstname: String,
     lastname: String,
+  },
+  data() {
+    return {
+      useImg: require("../assets/" + this.picture),
+    };
   },
 };
 </script>
