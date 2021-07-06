@@ -12,6 +12,7 @@
           :number_sign="participant.number_sign"
           :firstname="participant.firstname"
           :lastname="participant.lastname"
+          :average="participant.average"
         />
       </div>
     </div>
@@ -33,6 +34,7 @@ export default {
     number_sign: String,
     firstname: String,
     lastname: String,
+    average: String
   },
   components: {
     PaxCard,

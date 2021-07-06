@@ -60,16 +60,13 @@ class ParticipantManager extends Model
         $db = $this->getDb();
        
         $list = [];
-        $listing = $db->query('SELECT * FROM `participant` INNER JOIN `trial` ON trial.number_sign = participant.number_sign ORDER BY `average` ASC');
+        $listing = $db->query('SELECT * FROM `participant` INNER JOIN `trial` ON participant.number_sign = trial.number_sign ORDER BY `average` ASC');
         while ($data = $listing->fetch(PDO::FETCH_ASSOC)) {
             $list[] = new Participant($data);
-            $asc[] = new Trial($data);
         }
-        var_dump($list);
         $listing->closeCursor();
-        return json_encode($list);
+        echo json_encode($list);
     }
-
 
     public function listAllExcel()
     {
