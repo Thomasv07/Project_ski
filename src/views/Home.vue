@@ -3,7 +3,7 @@
     <Slider />
     <h1>Classement:</h1>
     <div id="general">
-      <h2>Classement général:</h2>
+      <h2 class="homepage">Classement général:</h2>
       <div class="paxgen">
         <PaxCard
           v-for="participant in participants"
@@ -88,13 +88,13 @@ progress {
   right: 0;
 }
 
-h2 {
+.homepage {
   display: flex;
   align-items: center;
   font-size: 30px;
   flex-direction: column;
 }
-h2::after {
+.homepage::after {
   content: " ";
   width: 35%;
   height: 2px;
