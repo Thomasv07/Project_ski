@@ -4,6 +4,7 @@
     <h2>{{ id_category }}</h2>
     <p>{{ firstname }}</p>
     <p>{{ lastname }}</p>
+    <p>{{ average }}</p>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ export default {
     number_sign: String,
     firstname: String,
     lastname: String,
+    average: String
   },
   data() {
     return {
