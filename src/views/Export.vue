@@ -126,18 +126,17 @@ export default {
   data() {
     return {
       categories: null,
-      form: [
-        {
-          city: "",
-          date: "",
-          category: [],
-          firstname: [],
-          lastname: [],
-          email: [],
-          dob: [],
-          picture: [],
-        },
-      ],
+      form: {
+        city: "",
+        date: "",
+        category: [],
+        firstname: [],
+        lastname: [],
+        email: [],
+        dob: [],
+        picture: []
+      },
+
     };
   },
   mounted() {
@@ -150,18 +149,14 @@ export default {
       this.categories = data;
     },
     processFile(event) {
-      this.picture = event.target.files[0];
-    },
+    this.form.picture = event.target.files;
+  },
     checkForm: function (e) {
       const requestOptions = {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-          "Access-Control-Allow-Origin": "*",
-        },
-        mode: "cors",
-        body: JSON.stringify(this.form),
+        headers: { "Content-Type": "multipart/form-data","Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",  "Access-Control-Allow-Origin": '*' },
+        mode: 'cors',
+        body: JSON.stringify(this.form)
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();

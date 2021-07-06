@@ -12,7 +12,6 @@ $router->map('GET', '/', 'ControllerParticipant#getAll', 'homepage');
 $router->map('GET', '/select', 'ControllerCategory#selectcategory');
 $router->map('POST', '/insert', 'ControllerParticipant#insertParticipant#ControllerTournament#insertTournament#ControllerParticipant#exportExcel');
 $router->map('POST', '/import', 'ControllerTrial#insertExcel');
-$router->map('GET', '/category', 'ControllerParticipant#getPaxCategory');
 // match will do strict type checks on a pattern
 $match = $router->match();
 
