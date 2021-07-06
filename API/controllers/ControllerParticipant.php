@@ -10,13 +10,6 @@ class ControllerParticipant
         echo $participant;
     }
 
-    public function getPaxCategory(){
-        $manager = new ParticipantManager();
-        $participant = $manager->listPaxCategory();
-        echo $participant;
-
-    }
-
     public function insertParticipant()
     {
         $json = file_get_contents('php://input');
@@ -48,12 +41,16 @@ class ControllerParticipant
         $sheet->setCellValue('C3', 'Prénom');
         $sheet->setCellValue('D3', '1er passage');
         $sheet->setCellValue('E3', '2eme passage');
+        $sheet->setCellValue('F3', 'Moyenne');
 
         $rowcount = 4;
         foreach ($participants as $participant) {
             $paticipantArray = [$participant->getNumber_sign(), $participant->getLastname(), $participant->getFirstname()];
             $rowparticipant = array_chunk($paticipantArray, 3);
             $sheet->fromArray($rowparticipant, NULL, 'A' . $rowcount);
+            $sheet->setCellValue('D' . $rowcount, 'mm:ss,00');
+            $sheet->setCellValue('E' . $rowcount, 'mm:ss,00');
+            $sheet->setCellValue('F' . $rowcount, '=MOYENNE(D'.$rowcount.', E'.$rowcount.' )');
             $rowcount++;
         }
 
