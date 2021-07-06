@@ -1,11 +1,11 @@
 <?php
-class Trial
+class Trial implements JsonSerializable
 {
-    private $id_trial;
-    private $number_sign;
-    private $first_time;
-    private $second_time;
-    private $average;
+    protected $id_trial;
+    protected $number_sign;
+    protected $first_time;
+    protected $second_time;
+    protected $average;
 
     public function __construct(array $datas)
     {
@@ -61,23 +61,35 @@ class Trial
         }
     }
 
-    public function setNumber_sign($first_time)
+    public function setNumber_sign($number_sign)
     {
-            $this->first_time = $first_time;
+        $this->number_sign = $number_sign;
     }
 
-    public function setFirst_time($number_sign)
+    public function setFirst_time($first_time)
     {
-            $this->number_sign = $number_sign;
+        $this->first_time = $first_time;
     }
 
     public function setSecond_time($second_time)
     {
-            $this->second_time = $second_time;
+        $this->second_time = $second_time;
     }
 
     public function setAverage($average)
     {
         $this->average = $average;
+    }
+
+    public function jsonSerialize()
+    {
+        return
+            [
+                'id_trial' => $this->id_trial,
+                'number_sign' => $this->number_sign,
+                'first_time' => $this->first_time,
+                'second_time' => $this->second_time,
+                'average' => $this->average
+            ];
     }
 }

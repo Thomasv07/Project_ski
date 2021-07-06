@@ -16,15 +16,15 @@
         :key="category.id_category"
       >
         <h2>{{ category.type }}</h2>
-        <div v-for="participant in participants" :key="participant.id_category">
-          <div class="paxcardtranslate">
-            <PaxCard
-              v-if="category.id_category == participant.id_category"
-              :id_category="participant.id_category"
-              :picture="participant.picture"
-              :number_sign="participant.number_sign"
-              :firstname="participant.firstname"
-              :lastname="participant.lastname"
+        <div v-for="participant in participants "  :key="participant.id_category"> 
+            <div class="paxcardtranslate">
+              <PaxCard v-if="category.id_category == participant.id_category"
+                :id_category="participant.id_category"
+                :picture="participant.picture"
+                :number_sign="participant.number_sign"
+                :firstname="participant.firstname"
+                :lastname="participant.lastname"
+                :average="participant.average"
             />
           </div>
         </div>
@@ -93,7 +93,7 @@ export default {
 <style scoped>
 .slider {
   width: 500px;
-  height: 175px;
+  height: 275px;
   margin: 100px auto 0;
   overflow: hidden;
   position: relative;
@@ -108,7 +108,7 @@ export default {
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   width: 494px;
-  height: 169px;
+  height: 275px;
 }
 
 .btn {

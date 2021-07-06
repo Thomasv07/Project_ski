@@ -1,15 +1,14 @@
 <?php
 
-class Participant implements JsonSerializable{
-    private $id_participant;
-    private $firstname;
-    private $lastname;
-    private $dob;
-    private $email;
-    private $picture;
-    private $id_category;
-    private $number_sign;
-
+class Participant extends Trial implements JsonSerializable{
+    protected $id_participant;
+    protected $firstname;
+    protected $lastname;
+    protected $dob;
+    protected $email;
+    protected $picture;
+    protected $id_category;
+    protected $number_sign;
 
     public function __construct(array $datas){
         $this->hydrate($datas);
@@ -109,6 +108,10 @@ class Participant implements JsonSerializable{
             'picture' => $this->picture,
             'id_category' => $this->id_category,
             'number_sign' => $this->number_sign,
+            'id_trial' => $this->id_trial,
+            'first_time' => $this->first_time,
+            'second_time' => $this->second_time,
+            'average' => $this->average
         ];
     }
 }
