@@ -15,23 +15,6 @@
         />
       </div>
     </div>
-    <section
-      id="diffcat"
-      v-for="category in categories"
-      :key="category.id_category"
-    >
-      <h2>{{ category.type }}</h2>
-      <div v-for="participant in participants" :key="participant.id_category">
-        <PaxCard
-          v-if="participant.id_category == participant.id_category"
-          :id_category="participant.id_category"
-          :picture="participant.picture"
-          :number_sign="participant.number_sign"
-          :firstname="participant.firstname"
-          :lastname="participant.lastname"
-        />
-      </div>
-    </section>
   </div>
 </template>
 
