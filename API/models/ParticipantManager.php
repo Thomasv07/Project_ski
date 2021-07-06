@@ -58,28 +58,18 @@ class ParticipantManager extends Model
     public function listAllJson()
     {
         $db = $this->getDb();
-
+       
         $list = [];
-        $listing = $db->query('SELECT * FROM `participant`');
+        $listing = $db->query('SELECT * FROM `participant` INNER JOIN `trial` ON trial.number_sign = participant.number_sign ORDER BY `average` ASC');
         while ($data = $listing->fetch(PDO::FETCH_ASSOC)) {
             $list[] = new Participant($data);
+            $asc[] = new Trial($data);
         }
+        var_dump($list);
         $listing->closeCursor();
         return json_encode($list);
     }
 
-    public function listPaxCategory()
-    {
-        $db = $this->getDb();
-
-        $list = [];
-        $listing = $db->query('SELECT * FROM `participant` LIMIT 3');
-        while ($data = $listing->fetch(PDO::FETCH_ASSOC)) {
-            $list[] = new Participant($data);
-        }
-        $listing->closeCursor();
-        return json_encode($list);
-    }
 
     public function listAllExcel()
     {
