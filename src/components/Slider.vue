@@ -138,4 +138,8 @@ export default {
   right: 5px;
   transform: translate(50%);
 }
+.paxcardtranslate {
+  display: flex;
+  flex-direction: row;
+}
 </style>
