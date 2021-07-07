@@ -35,7 +35,7 @@
           <div class="titlecat2">
             <p>Ajouter des participants :</p>
             <div class="">
-              <select v-model="tournament.form.category" name="category" id="category">
+              <select v-model="tournament.form.category" name="tournament.form.category[]" id="category">
                 <option
                   v-for="category in categories"
                   :key="category.id_category"
@@ -51,7 +51,7 @@
                     v-model="tournament.form.lastname"
                     class="input2"
                     type="text"
-                    name="lastname"
+                    name="tournament.form.lastname[]"
                     id="lastname"
                     placeholder="Nom"
                     required
@@ -60,7 +60,7 @@
                     v-model="tournament.form.email"
                     class="input2"
                     type="text"
-                    name="email"
+                    name="tournament.form.email[]"
                     id="email"
                     placeholder="Email"
                     required
@@ -71,7 +71,7 @@
                     v-model="tournament.form.firstname"
                     class="input2"
                     type="text"
-                    name="firstname"
+                    name="tournament.form.firstname[]"
                     id="firstname"
                     placeholder="Prénom"
                     required
@@ -80,7 +80,7 @@
                     v-model="tournament.form.dob"
                     class="input2"
                     type="date"
-                    name="dob"
+                    name="tournament.form.dob[]"
                     id="dob"
                     required
                   />
@@ -150,7 +150,7 @@ export default {
       this.categories = data;
     },
     processFile(event) {
-      const image = event.target.files[0];
+      const image = event.target.files;
       this.createBase64Image(image);
     },
     createBase64Image(fileObject) {
@@ -183,7 +183,7 @@ export default {
       container.prepend(div);
 
       let select = document.createElement("select");
-      select.name = "category";
+      select.name = "tournament.form.category[]";
       select.setAttribute("v-model", "tournament.form.category");
 
       div.append(select);
@@ -199,7 +199,7 @@ export default {
 
       let lastname = document.createElement("input");
       lastname.type = "text";
-      lastname.name = "lastname";
+      lastname.name = "tournament.form.lastname[]";
       lastname.className = "input2";
       lastname.placeholder = "Nom";
       lastname.setAttribute("v-model", "tournament.form.lastname");
@@ -207,7 +207,7 @@ export default {
 
       let email = document.createElement("input");
       email.type = "text";
-      email.name = "email[]";
+      email.name = "tournament.form.email[]";
       email.className = "input2";
       email.placeholder = "Email";
       email.setAttribute("v-model", "tournament.form.email");
@@ -219,7 +219,7 @@ export default {
 
       let firstname = document.createElement("input");
       firstname.type = "text";
-      firstname.name = "firstname[]";
+      firstname.name = "tournament.form.firstname[]";
       firstname.className = "input2";
       firstname.placeholder = "Prénom";
       firstname.setAttribute("v-model", "tournament.form.firstname");
@@ -227,7 +227,7 @@ export default {
 
       let date = document.createElement("input");
       date.type = "date";
-      date.name = "dob[]";
+      date.name = "tournament.form.dob[]";
       date.className = "input2";
       date.id = "dob";
       date.setAttribute("v-model", "tournament.form.dob");
