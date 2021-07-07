@@ -14,6 +14,7 @@ class ControllerParticipant
     {
         $json = file_get_contents('php://input');
         $data = json_decode($json);
+        
         var_dump($data);
         $nb = count($data->firstname);
         for ($i = 0; $i < $nb; $i++) {    
