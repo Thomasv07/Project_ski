@@ -1,11 +1,10 @@
 <template>
   <div class="home">
     <div class="banniere">
-        <img :src="require('../assets/skidefond1.png')" />
-        <img :src="require('../assets/skidefond.png')" />
-      </div>
+      <img :src="require('../assets/skidefond1.png')" />
+      <img :src="require('../assets/skidefond.png')" />
+    </div>
     <div id="general">
-      
       <h2 class="homepage">Classement général:</h2>
       <div class="paxgen">
         <PaxCard
@@ -15,7 +14,6 @@
           :number_sign="participant.number_sign"
           :firstname="participant.firstname"
           :lastname="participant.lastname"
-          :average="participant.average"
         />
       </div>
     </div>
@@ -38,7 +36,6 @@ export default {
     number_sign: String,
     firstname: String,
     lastname: String,
-    average: String
   },
   components: {
     PaxCard,
@@ -81,7 +78,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 200px;
+  margin: 0 150px;
 }
 progress {
   top: 150px;
@@ -89,7 +86,6 @@ progress {
   right: 0;
 }
 .slider {
-  margin: 50px;
 }
 .homepage {
   display: flex;
