@@ -29,8 +29,7 @@
     <div class="trait"></div>
     <div class="er">
       <div>
-        <h3>Snow<br />generation</h3>
-        <img class="montagne" :src="require('../assets/mountain.png')" />
+        <img class="montagne" :src="require('../assets/logoski.png')" />
       </div>
       <p class="droit">
         © Tout droits réservés I Mentions légales I Réalisation Caroline Bony,
