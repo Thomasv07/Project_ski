@@ -134,9 +134,8 @@ export default {
         lastname: [],
         email: [],
         dob: [],
-        picture: []
+        picture: [],
       },
-
     };
   },
   mounted() {
@@ -149,14 +148,18 @@ export default {
       this.categories = data;
     },
     processFile(event) {
-    this.form.picture = event.target.files;
-  },
+      this.form.picture = event.target.files;
+    },
     checkForm: function (e) {
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "multipart/form-data","Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",  "Access-Control-Allow-Origin": '*' },
-        mode: 'cors',
-        body: JSON.stringify(this.form)
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+          "Access-Control-Allow-Origin": "*",
+        },
+        mode: "cors",
+        body: JSON.stringify(this.form),
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
@@ -363,5 +366,4 @@ label {
   border-radius: 10px;
   padding: 10px 50px 10px 50px;
 }
-
 </style>

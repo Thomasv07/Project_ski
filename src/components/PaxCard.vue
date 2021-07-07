@@ -1,7 +1,6 @@
 <template>
   <div class="Pax">
     <img :src="useImg" :alt="number_sign" />
-    <h2>{{ id_category }}</h2>
     <p>{{ firstname }}</p>
     <p>{{ lastname }}</p>
     <p>{{ average }}</p>
@@ -13,11 +12,10 @@ export default {
   name: "PaxCard",
   props: {
     picture: String,
-    id_category: Number,
     number_sign: String,
     firstname: String,
     lastname: String,
-    average: String
+    average: String,
   },
   data() {
     return {

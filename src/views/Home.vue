@@ -1,9 +1,11 @@
 <template>
   <div class="home">
-    <Slider />
-    <h1>Classement:</h1>
+    <div class="banniere">
+      <img :src="require('../assets/skidefond1.png')" />
+      <img :src="require('../assets/skidefond.png')" />
+    </div>
     <div id="general">
-      <h2>Classement général:</h2>
+      <h2 class="homepage">Classement général:</h2>
       <div class="paxgen">
         <PaxCard
           v-for="participant in participants"
@@ -12,10 +14,10 @@
           :number_sign="participant.number_sign"
           :firstname="participant.firstname"
           :lastname="participant.lastname"
-          :average="participant.average"
         />
       </div>
     </div>
+    <Slider />
   </div>
 </template>
 
@@ -34,7 +36,6 @@ export default {
     number_sign: String,
     firstname: String,
     lastname: String,
-    average: String
   },
   components: {
     PaxCard,
@@ -67,30 +68,42 @@ export default {
 </script>
 
 <style scoped>
+.banniere {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+}
+.home {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 150px;
+}
 progress {
   top: 150px;
   transform: rotate(90deg);
   right: 0;
 }
-
-h2 {
+.slider {
+}
+.homepage {
   display: flex;
   align-items: center;
   font-size: 30px;
   flex-direction: column;
 }
-h2::after {
+.homepage::after {
   content: " ";
   width: 35%;
   height: 2px;
-  background: rgb(0, 0, 0);
 }
 #general {
   border: 2px solid #42b983;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   width: 40%;
-  margin-left: 50px;
+  margin: 50px;
   height: 500px;
   overflow: auto;
 }
