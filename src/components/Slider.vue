@@ -25,6 +25,7 @@
               :number_sign="participant.number_sign"
               :firstname="participant.firstname"
               :lastname="participant.lastname"
+              :average="participant.average"
             />
           </div>
         </div>

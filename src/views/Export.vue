@@ -13,7 +13,7 @@
           <div class="input">
             <label for="tournament">Evenement:</label>
             <input
-              v-model="form.city"
+              v-model="tournament.city"
               class="epreuve"
               type="text"
               name="city"
@@ -22,7 +22,7 @@
               required
             />
             <input
-              v-model="form.date"
+              v-model="tournament.date"
               class="epreuve"
               type="date"
               name="date"
@@ -35,7 +35,7 @@
           <div class="titlecat2">
             <p>Ajouter des participants :</p>
             <div class="">
-              <select v-model="form.category" name="category[]" id="category">
+              <select v-model="tournament.form.category" name="category" id="category">
                 <option
                   v-for="category in categories"
                   :key="category.id_category"
@@ -48,19 +48,19 @@
               <div class="allinput">
                 <div class="firstinput">
                   <input
-                    v-model="form.lastname"
+                    v-model="tournament.form.lastname"
                     class="input2"
                     type="text"
-                    name="lastname[]"
+                    name="lastname"
                     id="lastname"
                     placeholder="Nom"
                     required
                   />
                   <input
-                    v-model="form.email"
+                    v-model="tournament.form.email"
                     class="input2"
                     type="text"
-                    name="email[]"
+                    name="email"
                     id="email"
                     placeholder="Email"
                     required
@@ -68,19 +68,19 @@
                 </div>
                 <div class="secondinput">
                   <input
-                    v-model="form.firstname"
+                    v-model="tournament.form.firstname"
                     class="input2"
                     type="text"
-                    name="firstname[]"
+                    name="firstname"
                     id="firstname"
                     placeholder="Prénom"
                     required
                   />
                   <input
-                    v-model="form.dob"
+                    v-model="tournament.form.dob"
                     class="input2"
                     type="date"
-                    name="dob[]"
+                    name="dob"
                     id="dob"
                     required
                   />
@@ -93,7 +93,7 @@
                   class="input2"
                   hidden
                   type="file"
-                  name="picture[]"
+                  name="picture"
                   accept=".jpg, .jpeg, .gif, .png"
                   id="imgInp"
                 />
@@ -126,15 +126,17 @@ export default {
   data() {
     return {
       categories: null,
-      form: {
+      tournament: {
         city: "",
         date: "",
-        category: [],
-        firstname: [],
-        lastname: [],
-        email: [],
-        dob: [],
-        picture: [],
+        form: [{
+          category: "",
+          firstname: "",
+          lastname: "",
+          email: "",
+          dob: "",
+          picture: "",
+        }],
       },
     };
   },
@@ -148,7 +150,16 @@ export default {
       this.categories = data;
     },
     processFile(event) {
-      this.form.picture = event.target.files;
+      const image = event.target.files[0];
+      this.createBase64Image(image);
+    },
+    createBase64Image(fileObject) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        this.tournament.form.picture = e.target.result;
+      };
+      reader.readAsDataURL(fileObject);
     },
     checkForm: function (e) {
       const requestOptions = {
@@ -159,11 +170,11 @@ export default {
           "Access-Control-Allow-Origin": "*",
         },
         mode: "cors",
-        body: JSON.stringify(this.form),
+        body: JSON.stringify(this.tournament)
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
-      console.log(this.form);
+      console.log(this.tournament);
     },
     BtnPax: function () {
       var container = document.getElementById("container");
@@ -172,8 +183,8 @@ export default {
       container.prepend(div);
 
       let select = document.createElement("select");
-      select.name = "category[]";
-      select.setAttribute("v-model", "form.category");
+      select.name = "category";
+      select.setAttribute("v-model", "tournament.form.category");
 
       div.append(select);
       this.categories.forEach((element) => {
@@ -188,9 +199,10 @@ export default {
 
       let lastname = document.createElement("input");
       lastname.type = "text";
-      lastname.name = "lastname[]";
+      lastname.name = "lastname";
       lastname.className = "input2";
       lastname.placeholder = "Nom";
+      lastname.setAttribute("v-model", "tournament.form.lastname");
       lastnamediv.prepend(lastname);
 
       let email = document.createElement("input");
@@ -198,7 +210,7 @@ export default {
       email.name = "email[]";
       email.className = "input2";
       email.placeholder = "Email";
-      email.setAttribute("v-model", "form.email");
+      email.setAttribute("v-model", "tournament.form.email");
       lastnamediv.append(email);
 
       let firstnamediv = document.createElement("div");
@@ -210,7 +222,7 @@ export default {
       firstname.name = "firstname[]";
       firstname.className = "input2";
       firstname.placeholder = "Prénom";
-      firstname.setAttribute("v-model", "form.firstname");
+      firstname.setAttribute("v-model", "tournament.form.firstname");
       firstnamediv.append(firstname);
 
       let date = document.createElement("input");
@@ -218,7 +230,7 @@ export default {
       date.name = "dob[]";
       date.className = "input2";
       date.id = "dob";
-      date.setAttribute("v-model", "form.dob");
+      date.setAttribute("v-model", "tournament.form.dob");
       firstnamediv.append(date);
 
       let inputImgdiv = document.createElement("div");
@@ -227,8 +239,9 @@ export default {
 
       let inputImg = document.createElement("input");
       inputImg.type = "file";
-      inputImg.name = "picture[]";
+      inputImg.name = "picture";
       inputImg.className = "picture";
+      inputImg.onchange='processFile($event)';
       inputImg.accept = ".jpg, .jpeg, .gif, .png";
       inputImgdiv.append(inputImg);
     },
