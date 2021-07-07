@@ -13,4 +13,17 @@ class TournamentManager extends Model
         $req->closeCursor();
         
     }
+
+    public function listTournament()
+    {
+        $db = $this->getDb();
+       
+        $list = [];
+        $listing = $db->query('SELECT * FROM `tournament`');
+        while ($data = $listing->fetch(PDO::FETCH_ASSOC)) {
+            $list[] = new Tournament($data);
+        }
+        $listing->closeCursor();
+        return $list;
+    }
 }

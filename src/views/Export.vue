@@ -1,15 +1,15 @@
 <template>
   <div class="export">
     <h2>Création d'événement</h2>
-
-    <form
-      @submit="checkForm"
-      action="/insert"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <div class="twobox">
-        <div class="firstcard">
+    <div class="twobox">
+      <form
+        @submit="Formtournament"
+        action="/event"
+        method="POST"
+        enctype="multipart/form-data"
+        class="firstcard"
+      >
+        
           <div class="input">
             <label for="tournament">Evenement:</label>
             <input
@@ -30,12 +30,23 @@
               required
             />
           </div>
-        </div>
-        <div class="secondcard">
+          <div class="addpax">
+            <button type="submit" name="submit" id="add">
+              Créer un évenement
+            </button>
+          </div>
+      </form>
+      <form
+        @submit="Formpax"
+        action="/insert"
+        method="POST"
+        enctype="multipart/form-data"
+        class="secondcard"
+      >
           <div class="titlecat2">
             <p>Ajouter des participants :</p>
-            <div class="">
-              <select v-model="tournament.form.category" name="tournament.form.category[]" id="category">
+            <div>
+              <select v-model="form.category" name="category" id="category">
                 <option
                   v-for="category in categories"
                   :key="category.id_category"
@@ -44,23 +55,22 @@
                   {{ category.type }}
                 </option>
               </select>
-
               <div class="allinput">
                 <div class="firstinput">
                   <input
-                    v-model="tournament.form.lastname"
+                    v-model="form.lastname"
                     class="input2"
                     type="text"
-                    name="tournament.form.lastname[]"
+                    name="lastname"
                     id="lastname"
                     placeholder="Nom"
                     required
                   />
                   <input
-                    v-model="tournament.form.email"
+                    v-model="form.email"
                     class="input2"
                     type="text"
-                    name="tournament.form.email[]"
+                    name="email"
                     id="email"
                     placeholder="Email"
                     required
@@ -68,19 +78,19 @@
                 </div>
                 <div class="secondinput">
                   <input
-                    v-model="tournament.form.firstname"
+                    v-model="form.firstname"
                     class="input2"
                     type="text"
-                    name="tournament.form.firstname[]"
+                    name="firstname"
                     id="firstname"
                     placeholder="Prénom"
                     required
                   />
                   <input
-                    v-model="tournament.form.dob"
+                    v-model="form.dob"
                     class="input2"
                     type="date"
-                    name="tournament.form.dob[]"
+                    name="dob"
                     id="dob"
                     required
                   />
@@ -100,18 +110,16 @@
               </div>
             </div>
           </div>
-          <div id="container"></div>
           <div class="addpax">
-            <button type="button" @click="BtnPax" id="add">
+            <button type="submit" name="submit" id="add">
               Ajouter un participant
             </button>
           </div>
-        </div>
-      </div>
-      <div class="submit">
-        <input class="exp" type="submit" name="submit" value="Valider" />
-      </div>
-    </form>
+      </form>
+    </div>
+    <div class="submit">
+      <input class="exp" type="button" @click='exportexcel()' value="Exporter le fichier excel" />
+    </div>
   </div>
 </template>
 
@@ -129,39 +137,48 @@ export default {
       tournament: {
         city: "",
         date: "",
-        form: [{
-          category: "",
-          firstname: "",
-          lastname: "",
-          email: "",
-          dob: "",
-          picture: "",
-        }],
+      },
+      form: {
+        category: "",
+        firstname: "",
+        lastname: "",
+        email: "",
+        dob: "",
+        picture: "",
       },
     };
   },
   mounted() {
     this.getSelect();
-  },
+      },
   methods: {
     async getSelect() {
       const res = await apiservice.getSelect();
       const data = await res.json();
       this.categories = data;
     },
+    Formtournament: function (e) {
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(this.tournament),
+      };
+      fetch("http://projet:8080/Project_ski/API/event", requestOptions);
+      e.preventDefault();
+      console.log(this.tournament);
+    },
     processFile(event) {
-      const image = event.target.files;
+      const image = event.target.files[0];
       this.createBase64Image(image);
     },
     createBase64Image(fileObject) {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        this.tournament.form.picture = e.target.result;
+        this.form.picture = e.target.result;
       };
       reader.readAsDataURL(fileObject);
     },
-    checkForm: function (e) {
+    Formpax: function (e) {
       const requestOptions = {
         method: "POST",
         headers: {
@@ -170,82 +187,17 @@ export default {
           "Access-Control-Allow-Origin": "*",
         },
         mode: "cors",
-        body: JSON.stringify(this.tournament)
+        body: JSON.stringify(this.form),
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
-      console.log(this.tournament);
+      console.log(this.form);
     },
-    BtnPax: function () {
-      var container = document.getElementById("container");
-      let div = document.createElement("div");
-      div.className = "titlecat";
-      container.prepend(div);
+    exportexcel(){
+    fetch("http://projet:8080/Project_ski/API/export");
 
-      let select = document.createElement("select");
-      select.name = "tournament.form.category[]";
-      select.setAttribute("v-model", "tournament.form.category");
-
-      div.append(select);
-      this.categories.forEach((element) => {
-        let option = document.createElement("option");
-        option.value = element.id_category;
-        option.text = element.type;
-        select.appendChild(option);
-      });
-      let lastnamediv = document.createElement("div");
-      lastnamediv.className = "firstinput";
-      div.append(lastnamediv);
-
-      let lastname = document.createElement("input");
-      lastname.type = "text";
-      lastname.name = "tournament.form.lastname[]";
-      lastname.className = "input2";
-      lastname.placeholder = "Nom";
-      lastname.setAttribute("v-model", "tournament.form.lastname");
-      lastnamediv.prepend(lastname);
-
-      let email = document.createElement("input");
-      email.type = "text";
-      email.name = "tournament.form.email[]";
-      email.className = "input2";
-      email.placeholder = "Email";
-      email.setAttribute("v-model", "tournament.form.email");
-      lastnamediv.append(email);
-
-      let firstnamediv = document.createElement("div");
-      firstnamediv.className = "secondinput";
-      div.append(firstnamediv);
-
-      let firstname = document.createElement("input");
-      firstname.type = "text";
-      firstname.name = "tournament.form.firstname[]";
-      firstname.className = "input2";
-      firstname.placeholder = "Prénom";
-      firstname.setAttribute("v-model", "tournament.form.firstname");
-      firstnamediv.append(firstname);
-
-      let date = document.createElement("input");
-      date.type = "date";
-      date.name = "tournament.form.dob[]";
-      date.className = "input2";
-      date.id = "dob";
-      date.setAttribute("v-model", "tournament.form.dob");
-      firstnamediv.append(date);
-
-      let inputImgdiv = document.createElement("div");
-      inputImgdiv.className = "picture";
-      div.append(inputImgdiv);
-
-      let inputImg = document.createElement("input");
-      inputImg.type = "file";
-      inputImg.name = "picture";
-      inputImg.className = "picture";
-      inputImg.onchange='processFile($event)';
-      inputImg.accept = ".jpg, .jpeg, .gif, .png";
-      inputImgdiv.append(inputImg);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -310,7 +262,6 @@ label {
 .secondcard {
   background-image: url("../assets/neige.jpg");
   width: 50%;
-  overflow: auto;
   height: 600px;
 }
 .container {

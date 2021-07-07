@@ -1,9 +1,9 @@
 <?php
 class Tournament
 {
-    private $id_tournament;
-    private $city;
-    private $date;
+    protected $id_tournament;
+    protected $city;
+    protected $date;
 
     public function __construct(array $datas)
     {
