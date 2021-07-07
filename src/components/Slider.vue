@@ -16,7 +16,6 @@
         :key="category.id_category"
       >
         <h2>{{ category.type }}</h2>
-
         <div v-for="participant in participants" :key="participant.id_category">
           <div class="paxcardtranslate">
             <PaxCard
@@ -64,18 +63,18 @@ export default {
   methods: {
     next() {
       console.log(this.index);
-      if (this.index === -2500) {
+      if (this.index === -2000) {
         this.index = 0;
       } else {
-        this.index -= 500;
+        this.index -= 310.8;
       }
     },
     prev() {
       console.log(this.index);
-      if (this.index === -2500) {
+      if (this.index === -2000) {
         this.index = 0;
       } else {
-        this.index -= 500;
+        this.index -= -310.8;
       }
     },
     async getAll() {
@@ -94,23 +93,23 @@ export default {
 
 <style scoped>
 .slider {
-  width: 500px;
+  width: 310.8px;
   height: 275px;
   margin: 100px auto 0;
   overflow: hidden;
   position: relative;
-  background-color: rgb(0, 0, 0);
 }
 .container-slides {
   display: flex;
+  width: 600px;
 }
 .cardtranslate {
   display: flex;
   border: 3px solid #42b983;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
-  width: 494px;
-  height: 275px;
+  height: 269px;
+  width: 600px;
 }
 
 .btn {
@@ -134,12 +133,10 @@ export default {
 .btn-left {
   top: 50%;
   left: 5px;
-  transform: translate(-50%);
 }
 .btn-right {
   top: 50%;
   right: 5px;
-  transform: translate(50%);
 }
 .paxcardtranslate {
   display: flex;
