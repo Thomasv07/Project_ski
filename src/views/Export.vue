@@ -47,6 +47,7 @@
             <p>Ajouter des participants :</p>
             <div>
               <select v-model="form.category" name="category" id="category">
+                <option disabled>Choisir une catégorie</option>
                 <option
                   v-for="category in categories"
                   :key="category.id_category"
@@ -120,6 +121,28 @@
     <div class="submit">
       <input class="exp" type="button" @click='exportexcel()' value="Exporter le fichier excel" />
     </div>
+    <table>
+    <thead>
+        <tr>
+            <th>Numéro de dossard</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Date de naissance</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="participant in participants"
+          :key="participant.id_participant">
+            <td>{{participant.number_sign}}</td>
+            <td>{{participant.firstname}}</td>
+            <td>{{participant.lastname}}</td>
+            <td>{{participant.dob}}</td>
+            <td>{{participant.email}}</td>
+            <td> Suppression</td>
+        </tr>
+    </tbody>
+</table>
   </div>
 </template>
 
@@ -134,6 +157,7 @@ export default {
   data() {
     return {
       categories: null,
+      participants: null,
       tournament: {
         city: "",
         date: "",
@@ -150,6 +174,7 @@ export default {
   },
   mounted() {
     this.getSelect();
+    this.getAll();
       },
   methods: {
     async getSelect() {
@@ -157,6 +182,12 @@ export default {
       const data = await res.json();
       this.categories = data;
     },
+    async getAll() {
+      const res = await apiservice.getAll();
+      const data = await res.json();
+      this.participants = data;
+    },
+    
     Formtournament: function (e) {
       const requestOptions = {
         method: "POST",
