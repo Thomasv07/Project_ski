@@ -1,7 +1,18 @@
 <template>
   <div class="import">
-    <form action="./import" method="POST" enctype="multipart/form-data" @submit="checkForm">
-      <input id="addfiles" hidden type="file" name="import_file" @change="onChange"/>
+    <form
+      action="./import"
+      method="POST"
+      enctype="multipart/form-data"
+      @submit="checkForm"
+    >
+      <input
+        id="addfiles"
+        hidden
+        type="file"
+        name="import_file"
+        @change="onChange"
+      />
       <div class="formimport">
         <h2>Importer un fichier excel</h2>
         <label class="addfiles" for="addfiles">Choisir un fichier</label>
@@ -17,8 +28,6 @@
   </div>
 </template>
 <script>
-
-
 export default {
   name: "Import",
   data() {
@@ -35,9 +44,8 @@ export default {
       this.file = event.target.files ? event.target.files[0] : null;
     },
     checkForm: function (e) {
-
-      var data = new FormData()
-      data.append(this.file.name, this.file)
+      var data = new FormData();
+      data.append(this.file.name, this.file);
 
       const requestOptions = {
         method: "POST",
@@ -45,7 +53,7 @@ export default {
           "Content-Type": "multipart/form-data",
         },
         mode: "cors",
-        body: data
+        body: data,
       };
       fetch("http://projet:8080/Project_ski/API/import", requestOptions);
       e.preventDefault();
