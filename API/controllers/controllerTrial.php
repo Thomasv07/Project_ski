@@ -5,8 +5,11 @@ class ControllerTrial
     // Fonction d'insert paticipant dans Excel
     public function insertExcel()
     {
+        var_dump($_FILES);
         $allowed_ext = ['xls', 'csv', 'xlsx'];
-        $filename = $_FILES['import_file']['name'];
+        $filename =  $data->name;
+        
+        
         $check_ext = explode(".", $filename);
         $file_ext = end($check_ext);
         
