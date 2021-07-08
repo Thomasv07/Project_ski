@@ -134,6 +134,7 @@
           <th>Nom</th>
           <th>Date de naissance</th>
           <th>Email</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -144,7 +145,7 @@
           <td>{{ participant.number_sign }}</td>
           <td>{{ participant.firstname }}</td>
           <td>{{ participant.lastname }}</td>
-          <td>{{ participant.dob }}</td>
+          <td class="date">{{ participant.dob }}</td>
           <td>{{ participant.email }}</td>
           <td>
             <a @click="del(participant.id_participant)">
@@ -389,5 +390,50 @@ label {
   border: none;
   border-radius: 10px;
   padding: 10px 50px 10px 50px;
+}
+a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  transition: color 0.2s ease-out;
+  margin: 0 10px 0 10px;
+}
+a:hover {
+  color: #c7260c;
+}
+table {
+  margin: 20px auto 100px auto;
+  padding: 0;
+}
+td {
+  padding: 20px 5px;
+  height: 30px;
+  transition: all 0.3s ease-out;
+  border-top: 1px solid rgb(0, 0, 0);
+}
+td:hover {
+  height: 50px;
+}
+table {
+  border: medium solid #c7260c;
+  border-collapse: collapse;
+  width: 50%;
+}
+th {
+  font-family: monospace;
+  border: thin solid #6495ed;
+  width: 50%;
+  padding: 5px;
+  background-color: #002450;
+  padding: 5px;
+  background-color: #002450;
+  color: white;
+}
+td {
+  font-family: sans-serif;
+  border: thin solid #6495ed;
+  width: 50%;
+  padding: 5px;
+  text-align: center;
+  background-color: #ffffff;
 }
 </style>
