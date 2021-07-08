@@ -9,32 +9,31 @@
         enctype="multipart/form-data"
         class="firstcard"
       >
-        
-          <div class="input">
-            <label for="tournament">Evenement:</label>
-            <input
-              v-model="tournament.city"
-              class="epreuve"
-              type="text"
-              name="city"
-              id="city"
-              placeholder="Nom de l'épreuve"
-              required
-            />
-            <input
-              v-model="tournament.date"
-              class="epreuve"
-              type="date"
-              name="date"
-              id="date"
-              required
-            />
-          </div>
-          <div class="addpax">
-            <button type="submit" name="submit" id="add">
-              Créer un évenement
-            </button>
-          </div>
+        <div class="input">
+          <label for="tournament">Evenement:</label>
+          <input
+            v-model="tournament.city"
+            class="epreuve"
+            type="text"
+            name="city"
+            id="city"
+            placeholder="Nom de l'épreuve"
+            required
+          />
+          <input
+            v-model="tournament.date"
+            class="epreuve"
+            type="date"
+            name="date"
+            id="date"
+            required
+          />
+        </div>
+        <div class="addpax">
+          <button type="submit" name="submit" id="add">
+            Créer un évenement
+          </button>
+        </div>
       </form>
       <form
         @submit="Formpax"
@@ -43,106 +42,114 @@
         enctype="multipart/form-data"
         class="secondcard"
       >
-          <div class="titlecat2">
-            <p>Ajouter des participants :</p>
-            <div>
-              <select v-model="form.category" name="category" id="category">
-                <option disabled>Choisir une catégorie</option>
-                <option
-                  v-for="category in categories"
-                  :key="category.id_category"
-                  :value="category.id_category"
-                >
-                  {{ category.type }}
-                </option>
-              </select>
-              <div class="allinput">
-                <div class="firstinput">
-                  <input
-                    v-model="form.lastname"
-                    class="input2"
-                    type="text"
-                    name="lastname"
-                    id="lastname"
-                    placeholder="Nom"
-                    required
-                  />
-                  <input
-                    v-model="form.email"
-                    class="input2"
-                    type="text"
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                    required
-                  />
-                </div>
-                <div class="secondinput">
-                  <input
-                    v-model="form.firstname"
-                    class="input2"
-                    type="text"
-                    name="firstname"
-                    id="firstname"
-                    placeholder="Prénom"
-                    required
-                  />
-                  <input
-                    v-model="form.dob"
-                    class="input2"
-                    type="date"
-                    name="dob"
-                    id="dob"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="picture">
-                <label for="imgInp"><img src="../assets/tof.png" /></label>
+        <div class="titlecat2">
+          <p>Ajouter des participants :</p>
+          <div>
+            <select v-model="form.category" name="category" id="category">
+              <option disabled>Choisir une catégorie</option>
+              <option
+                v-for="category in categories"
+                :key="category.id_category"
+                :value="category.id_category"
+              >
+                {{ category.type }}
+              </option>
+            </select>
+            <div class="allinput">
+              <div class="firstinput">
                 <input
-                  @change="processFile($event)"
+                  v-model="form.lastname"
                   class="input2"
-                  hidden
-                  type="file"
-                  name="picture"
-                  accept=".jpg, .jpeg, .gif, .png"
-                  id="imgInp"
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  placeholder="Nom"
+                  required
+                />
+                <input
+                  v-model="form.email"
+                  class="input2"
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <div class="secondinput">
+                <input
+                  v-model="form.firstname"
+                  class="input2"
+                  type="text"
+                  name="firstname"
+                  id="firstname"
+                  placeholder="Prénom"
+                  required
+                />
+                <input
+                  v-model="form.dob"
+                  class="input2"
+                  type="date"
+                  name="dob"
+                  id="dob"
+                  required
                 />
               </div>
             </div>
+            <div class="picture">
+              <label for="imgInp"><img src="../assets/tof.png" /></label>
+              <input
+                @change="processFile($event)"
+                class="input2"
+                hidden
+                type="file"
+                name="picture"
+                accept=".jpg, .jpeg, .gif, .png"
+                id="imgInp"
+              />
+            </div>
           </div>
-          <div class="addpax">
-            <button type="submit" name="submit" id="add">
-              Ajouter un participant
-            </button>
-          </div>
+        </div>
+        <div class="addpax">
+          <button type="submit" name="submit" id="add" >
+            Ajouter un participant
+          </button>
+        </div>
       </form>
     </div>
     <div class="submit">
-      <input class="exp" type="button" @click='exportexcel()' value="Exporter le fichier excel" />
+     <a href="../API/evenement.xlsx" download=""> <input
+        class="exp"
+        type="button"
+        @click="exportexcel()"
+        value="Exporter le fichier excel"
+      /> </a>
+     
     </div>
     <table>
-    <thead>
+      <thead>
         <tr>
-            <th>Numéro de dossard</th>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Date de naissance</th>
-            <th>Email</th>
+          <th>Numéro de dossard</th>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Date de naissance</th>
+          <th>Email</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr v-for="participant in participants"
-          :key="participant.id_participant">
-            <td>{{participant.number_sign}}</td>
-            <td>{{participant.firstname}}</td>
-            <td>{{participant.lastname}}</td>
-            <td>{{participant.dob}}</td>
-            <td>{{participant.email}}</td>
-            <td> Suppression</td>
+      </thead>
+      <tbody>
+        <tr
+          v-for="participant in participants"
+          :key="participant.id_participant"
+        >
+          <td>{{ participant.number_sign }}</td>
+          <td>{{ participant.firstname }}</td>
+          <td>{{ participant.lastname }}</td>
+          <td>{{ participant.dob }}</td>
+          <td>{{ participant.email }}</td>
+          <td>Suppression</td>
         </tr>
-    </tbody>
-</table>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -175,7 +182,7 @@ export default {
   mounted() {
     this.getSelect();
     this.getAll();
-      },
+  },
   methods: {
     async getSelect() {
       const res = await apiservice.getSelect();
@@ -187,7 +194,7 @@ export default {
       const data = await res.json();
       this.participants = data;
     },
-    
+
     Formtournament: function (e) {
       const requestOptions = {
         method: "POST",
@@ -224,11 +231,14 @@ export default {
       e.preventDefault();
       console.log(this.form);
     },
-    exportexcel(){
-    fetch("http://projet:8080/Project_ski/API/export");
-
-    }
-  }
+    exportexcel() {
+      fetch("http://projet:8080/Project_ski/API/export")
+        // .then(() => {
+        //   window.download.href ="../evenement.xlsx"
+        // })
+        // .catch(console.error);
+    },
+  },
 };
 </script>
 
