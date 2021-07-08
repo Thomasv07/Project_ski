@@ -1,38 +1,43 @@
 <template>
   <div class="slider">
     <button @click="prev" type="button" class="btn btn-left">
-      <img src="../assets/esf.jpg" class="icone" />
+      <img src="../assets/gauche.png" class="icone" />
     </button>
-    <section
-      class="container-slides"
-      :style="{
-        transform: `translateX(${index}px)`,
-        transition: `${transition}`,
-      }"
-    >
+    <section class="container-slides">
       <div
-        class="cardtranslate"
-        v-for="category in categories"
-        :key="category.id_category"
+        class="listCard"
+        :style="{
+          transform: `translateX(${index}px)`,
+          transition: `${transition}`,
+        }"
       >
-        <h2>{{ category.type }}</h2>
-        <div v-for="participant in participants" :key="participant.id_category">
-          <div class="paxcardtranslate">
-            <PaxCard
-              v-if="category.id_category == participant.id_category"
-              :id_category="participant.id_category"
-              :picture="participant.picture"
-              :number_sign="participant.number_sign"
-              :firstname="participant.firstname"
-              :lastname="participant.lastname"
-              :average="participant.average"
-            />
+        <div
+          class="cardtranslate"
+          v-for="category in categories"
+          :key="category.id_category"
+        >
+          <h2>{{ category.type }}</h2>
+          <div
+            v-for="participant in participants"
+            :key="participant.id_category"
+          >
+            <div class="paxcardtranslate">
+              <PaxCard
+                v-if="category.id_category == participant.id_category"
+                :id_category="participant.id_category"
+                :picture="participant.picture"
+                :number_sign="participant.number_sign"
+                :firstname="participant.firstname"
+                :lastname="participant.lastname"
+                :average="participant.average"
+              />
+            </div>
           </div>
         </div>
       </div>
     </section>
     <button @click="next" type="button" class="btn btn-right">
-      <img src="../assets/esf.jpg" class="icone" />
+      <img src="../assets/droite.png" class="icone" />
     </button>
   </div>
 </template>
@@ -62,19 +67,25 @@ export default {
   },
   methods: {
     next() {
-      console.log(this.index);
-      if (this.index === -2000) {
-        this.index = 0;
+      const section = document.querySelector(".listCard");
+      const containerSlides = document.querySelector(".container-slides");
+      const step = containerSlides.offsetWidth;
+      const maxSlide = section.offsetWidth - step;
+
+      if (this.index == -maxSlide) {
+        this.index = -maxSlide;
       } else {
-        this.index -= 310.8;
+        this.index -= step;
       }
     },
     prev() {
-      console.log(this.index);
-      if (this.index === -2000) {
+      const containerSlides = document.querySelector(".container-slides");
+      const step = containerSlides.offsetWidth;
+
+      if (this.index == 0) {
         this.index = 0;
       } else {
-        this.index -= -310.8;
+        this.index += step;
       }
     },
     async getAll() {
@@ -93,23 +104,25 @@ export default {
 
 <style scoped>
 .slider {
-  width: 310.8px;
-  height: 275px;
+  width: 500px;
+  height: 256px;
   margin: 100px auto 0;
   overflow: hidden;
   position: relative;
 }
-.container-slides {
+.listCard {
   display: flex;
-  width: 600px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .cardtranslate {
   display: flex;
-  border: 3px solid #42b983;
+  border: 3px solid #c7260c;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
-  height: 269px;
-  width: 600px;
+  width: 494px;
+  height: 250px;
 }
 
 .btn {
@@ -128,18 +141,18 @@ export default {
   align-items: center;
 }
 .icone {
-  width: 15px;
+  width: 30px;
 }
 .btn-left {
-  top: 50%;
+  top: 45%;
   left: 5px;
 }
 .btn-right {
-  top: 50%;
+  top: 45%;
   right: 5px;
 }
-.paxcardtranslate {
-  display: flex;
-  flex-direction: row;
+.btn-left:hover,
+.btn-right:hover {
+  background-color: rgba(0, 0, 0, 0.295);
 }
 </style>

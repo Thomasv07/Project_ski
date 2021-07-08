@@ -226,6 +226,7 @@ export default {
         },
         mode: "cors",
         body: JSON.stringify(this.form),
+
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();

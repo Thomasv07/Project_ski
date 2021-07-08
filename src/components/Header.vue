@@ -2,8 +2,7 @@
   <div>
     <div class="title">
       <div>
-        <h3>Snow<br />generation</h3>
-        <img class="montagne" :src="require('../assets/mountain.png')" />
+        <img class="montagne" :src="require('../assets/logoski.png')" />
       </div>
       <nav class="nav2">
         <router-link to="/">Résultat</router-link>
@@ -96,6 +95,7 @@ a {
 }
 .montagne {
   width: 90px;
+  margin: 5px;
 }
 h3 {
   margin: 0;
