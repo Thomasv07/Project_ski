@@ -45,4 +45,16 @@ class ParticipantManager extends Model
         $listing->closeCursor();
         return $list;
     }
+
+    public function delete($id)
+    {
+
+        $db = $this->getDb();
+
+        $req = $db->prepare('DELETE FROM `participant` WHERE `id_participant` = :id_participant');
+        $req->bindValue(':id_participant', $id['id']);
+        $req->execute();
+
+        var_dump($id['id']);
+    }
 }

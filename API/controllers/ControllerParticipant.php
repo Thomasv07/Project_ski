@@ -85,7 +85,15 @@ class ControllerParticipant
         }
 
         $writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save('evenement.xlsx');
+        $writer->save('php://output');
         echo "<meta http-equiv='refresh' content='0;url=evenement.xlsx'/>";
+        return $writer;
+    }
+
+    public function deletepax($id)
+    {
+
+        $manager = new ParticipantManager();
+        $participant = $manager->delete($id);
     }
 }
