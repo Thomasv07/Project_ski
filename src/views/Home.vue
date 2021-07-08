@@ -1,9 +1,7 @@
 <template>
   <div class="home">
-    <div class="banniere">
-      <img :src="require('../assets/skidefond1.png')" />
-      <img :src="require('../assets/skidefond.png')" />
-    </div>
+    <div class="banniere"></div>
+    <img class="skidefond" :src="require('../assets/skidefond.png')" />
     <div id="general">
       <h2 class="homepage">Classement général:</h2>
       <div class="paxgen">
@@ -14,10 +12,13 @@
           :number_sign="participant.number_sign"
           :firstname="participant.firstname"
           :lastname="participant.lastname"
+          :average="participant.average"
         />
       </div>
+      <span class="grad_line3"></span>
     </div>
     <Slider />
+    <img class="skidefond1" :src="require('../assets/skidefond1.png')" />
   </div>
 </template>
 
@@ -68,24 +69,10 @@ export default {
 </script>
 
 <style scoped>
-.banniere {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  position: absolute;
-}
 .home {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 150px;
-}
-progress {
-  top: 150px;
-  transform: rotate(90deg);
-  right: 0;
-}
-.slider {
 }
 .homepage {
   display: flex;
@@ -93,26 +80,20 @@ progress {
   font-size: 30px;
   flex-direction: column;
 }
-.homepage::after {
-  content: " ";
-  width: 35%;
-  height: 2px;
-}
 #general {
-  border: 2px solid #42b983;
+  border: 2px solid #c7260c;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
-  width: 40%;
+  width: 30%;
   margin: 50px;
   height: 500px;
   overflow: auto;
 }
 .Pax {
   display: flex;
-  justify-content: space-around;
-  margin: 10px;
+  align-items: center;
+  justify-content: space-evenly;
 }
-
 ::-webkit-scrollbar {
   width: 20px;
 }
@@ -121,12 +102,19 @@ progress {
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: red;
+  background: #c7260c;
   border-radius: 10px;
 }
-#diffcat {
-  border: 2px solid #42b983;
+.skidefond {
+  border: 2px solid #c7260c;
   border-radius: 5px;
-  background-color: rgb(255, 255, 255);
+  margin: 15px;
+  width: 13%;
+}
+.skidefond1 {
+  border: 2px solid #c7260c;
+  border-radius: 5px;
+  margin: 15px;
+  width: 13%;
 }
 </style>

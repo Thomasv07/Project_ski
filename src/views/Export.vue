@@ -35,7 +35,11 @@
           <div class="titlecat2">
             <p>Ajouter des participants :</p>
             <div class="">
-              <select v-model="tournament.form.category" name="category" id="category">
+              <select
+                v-model="tournament.form.category"
+                name="category"
+                id="category"
+              >
                 <option
                   v-for="category in categories"
                   :key="category.id_category"
@@ -129,14 +133,16 @@ export default {
       tournament: {
         city: "",
         date: "",
-        form: [{
-          category: "",
-          firstname: "",
-          lastname: "",
-          email: "",
-          dob: "",
-          picture: "",
-        }],
+        form: [
+          {
+            category: "",
+            firstname: "",
+            lastname: "",
+            email: "",
+            dob: "",
+            picture: "",
+          },
+        ],
       },
     };
   },
@@ -170,7 +176,7 @@ export default {
           "Access-Control-Allow-Origin": "*",
         },
         mode: "cors",
-        body: JSON.stringify(this.tournament)
+        body: JSON.stringify(this.tournament),
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
@@ -241,7 +247,7 @@ export default {
       inputImg.type = "file";
       inputImg.name = "picture";
       inputImg.className = "picture";
-      inputImg.onchange='processFile($event)';
+      inputImg.onchange = "processFile($event)";
       inputImg.accept = ".jpg, .jpeg, .gif, .png";
       inputImgdiv.append(inputImg);
     },
