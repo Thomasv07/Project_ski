@@ -111,20 +111,20 @@
           </div>
         </div>
         <div class="addpax">
-          <button type="submit" name="submit" id="add" >
+          <button type="submit" name="submit" id="add">
             Ajouter un participant
           </button>
         </div>
       </form>
     </div>
     <div class="submit">
-     <a href="../API/evenement.xlsx" download=""> <input
+      <input
         class="exp"
         type="button"
         @click="exportexcel()"
         value="Exporter le fichier excel"
-      /> </a>
-     
+      />
+      <a></a>
     </div>
     <table>
       <thead>
@@ -146,7 +146,11 @@
           <td>{{ participant.lastname }}</td>
           <td>{{ participant.dob }}</td>
           <td>{{ participant.email }}</td>
-          <td>Suppression</td>
+          <td>
+            <a @click="del(participant.id_participant)">
+              Suppression
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -226,7 +230,6 @@ export default {
         },
         mode: "cors",
         body: JSON.stringify(this.form),
-
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
@@ -234,10 +237,25 @@ export default {
     },
     exportexcel() {
       fetch("http://projet:8080/Project_ski/API/export")
-        // .then(() => {
-        //   window.download.href ="../evenement.xlsx"
-        // })
-        // .catch(console.error);
+        .then((resp) => resp.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = "./assets/evenement.xlsx";
+          // the filename you want
+          a.download = "evenement.xlsx";
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          alert("your file has downloaded!");
+        })
+        .catch(() => alert("oh no!"));
+    },
+    del(id) {
+      if (confirm("Voulez vous supprimer ce participant?")) {
+        fetch("http://projet:8080/Project_ski/API/delete" + id);
+      }
     },
   },
 };
