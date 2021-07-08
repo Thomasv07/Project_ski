@@ -3,7 +3,8 @@
 class ControllerParticipant
 {
 
-    public function getAll(){
+    public function getAll()
+    {
 
         $manager = new ParticipantManager();
         $participant = $manager->listAllJson();
@@ -14,15 +15,38 @@ class ControllerParticipant
     {
         $json = file_get_contents('php://input');
         $data = json_decode($json);
-        
-        var_dump($data);
-        $nb = count($data->firstname);
-        for ($i = 0; $i < $nb; $i++) {    
-            $insert = new Participant(array('firstname' => $data->firstname[$i], 'lastname' => $data->lastname[$i], 'dob' => $data->dob[$i], 'email' => $data->email[$i], 'picture' => $_FILES['picture']['name'][$i], 'id_category' => $data->category[$i]));
+        // Define the Base64 value you need to save as an image
+        $b64 = explode(',', $data->picture);
 
-            $manager = new ParticipantManager();
-            $participant = $manager->insertionParticipant($insert);
+        // Obtain the original content (usually binary data)
+        $bin = base64_decode($b64[1]);
+
+        // Load GD resource from binary data
+        $im = imageCreateFromString($bin);
+
+        // Make sure that the GD library was able to load the image
+        // This is important, because you should not miss corrupted or unsupported images
+        if (!$im) {
+            die('Base64 value is not a valid image');
         }
+
+        // Rename the file and Specify the location where you want to save the image
+        $prefix = substr($data->firstname, 0, 1) . substr($data->lastname, 0, 1);
+        $uniq = uniqid($prefix);
+        $img_file = '../src/assets/'.$uniq.'.png';
+        $rename = $uniq.'.png';
+
+        // Save the GD resource as PNG in the best possible quality (no compression)
+        // This will strip any metadata or invalid contents (including, the PHP backdoor)
+        // To block any possible exploits, consider increasing the compression level
+        imagepng($im, $img_file, 0);
+
+
+
+        $insert = new Participant(array('firstname' => $data->firstname, 'lastname' => $data->lastname, 'dob' => $data->dob, 'email' => $data->email, 'picture' => $rename, 'id_category' => $data->category));
+
+        $manager = new ParticipantManager();
+        $participant = $manager->insertionParticipant($insert);
     }
 
     public function exportExcel()
@@ -33,10 +57,15 @@ class ControllerParticipant
         $manager = new ParticipantManager();
         $participants = $manager->listAllExcel();
 
+        $managerevent = new TournamentManager();
+        $tournaments = $managerevent->listTournament();
+
+        var_dump($tournaments);
+
         $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setCellValue('C1', $data->city . '-' . $data->date);
+        // $sheet->setCellValue('C1', $tournaments->getCity() . '-' . $tournaments->getDate());
         $sheet->setCellValue('A3', 'Numéro de dossard');
         $sheet->setCellValue('B3', 'Nom');
         $sheet->setCellValue('C3', 'Prénom');
@@ -51,13 +80,12 @@ class ControllerParticipant
             $sheet->fromArray($rowparticipant, NULL, 'A' . $rowcount);
             $sheet->setCellValue('D' . $rowcount, 'mm:ss,00');
             $sheet->setCellValue('E' . $rowcount, 'mm:ss,00');
-            $sheet->setCellValue('F' . $rowcount, '=MOYENNE(D'.$rowcount.', E'.$rowcount.' )');
+            $sheet->setCellValue('F' . $rowcount, '=MOYENNE(D' . $rowcount . ', E' . $rowcount . ' )');
             $rowcount++;
         }
 
         $writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save($data->city . '-' . $data->date . '.xlsx');
-
-        echo "<meta http-equiv='refresh' content='0;url=" . $data->city . '-' . $data->date . ".xlsx'/>";
+        $writer->save('evenement.xlsx');
+        echo "<meta http-equiv='refresh' content='0;url=evenement.xlsx'/>";
     }
 }

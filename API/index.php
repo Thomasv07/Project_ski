@@ -10,7 +10,9 @@ $router->setBasePath('Project_ski/API/');
 //Map a route to a target
 $router->map('GET', '/', 'ControllerParticipant#getAll#ControllerParticipant#getCat', 'homepage');
 $router->map('GET', '/select', 'ControllerCategory#selectcategory');
-$router->map('POST', '/insert', 'ControllerParticipant#insertParticipant#ControllerTournament#insertTournament#ControllerParticipant#exportExcel');
+$router->map('POST', '/insert', 'ControllerParticipant#insertParticipant');
+$router->map('POST', '/event', 'ControllerTournament#insertTournament');
+$router->map('GET', '/export', 'ControllerParticipant#exportExcel');
 $router->map('POST', '/import', 'ControllerTrial#insertExcel');
 // match will do strict type checks on a pattern
 $match = $router->match();
