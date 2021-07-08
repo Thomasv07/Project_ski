@@ -148,9 +148,7 @@
           <td class="date">{{ participant.dob }}</td>
           <td>{{ participant.email }}</td>
           <td>
-            <a @click="del(participant.id_participant)">
-              Suppression
-            </a>
+            <a @click="del(participant.id_participant)"> Suppression </a>
           </td>
         </tr>
       </tbody>

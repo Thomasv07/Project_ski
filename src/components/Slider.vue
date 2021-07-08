@@ -104,7 +104,7 @@ export default {
 
 <style scoped>
 .slider {
-  width: 500px;
+  width: 406px;
   height: 256px;
   margin: 100px auto 0;
   overflow: hidden;
@@ -121,7 +121,7 @@ export default {
   border: 3px solid #c7260c;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
-  width: 494px;
+  width: 400px;
   height: 250px;
 }
 
