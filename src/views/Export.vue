@@ -170,6 +170,7 @@ export default {
     return {
       categories: null,
       participants: null,
+      export: null,
       tournament: {
         city: "",
         date: "",
@@ -199,7 +200,6 @@ export default {
       const data = await res.json();
       this.participants = data;
     },
-
     Formtournament: function (e) {
       const requestOptions = {
         method: "POST",
@@ -235,17 +235,17 @@ export default {
       console.log(this.form);
     },
     exportexcel() {
-      fetch("http://projet:8080/Project_ski/API/export")
-        .then((resp) => resp.blob())
-        .then((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.style.display = "none";
-          a.href = "./assets/evenement.xlsx";
-          a.download = "evenement.xlsx";
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
+      fetch("http://projet:8080/Project_ski/API/export", {
+            // If you forget this, your download will be corrupt.
+            responseType: 'blob'
+        }).then((response) =>  {
+          console.log(response);
+        const blob = new Blob([response.data], { type: 'application/excel' })
+        const link = document.createElement('a')
+        link.href = URL.createObjectURL(blob)
+        link.download = 'evenment.xlsx'
+        link.click()
+        URL.revokeObjectURL(link.href)
           alert("your file has downloaded!");
         })
         .catch(() => alert("oh no!"));
