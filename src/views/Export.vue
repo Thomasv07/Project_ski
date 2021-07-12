@@ -226,8 +226,6 @@ export default {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-          "Access-Control-Allow-Origin": "*",
         },
         mode: "cors",
         body: JSON.stringify(this.form),
@@ -244,7 +242,6 @@ export default {
           const a = document.createElement("a");
           a.style.display = "none";
           a.href = "./assets/evenement.xlsx";
-          // the filename you want
           a.download = "evenement.xlsx";
           document.body.appendChild(a);
           a.click();
@@ -399,6 +396,7 @@ a {
 }
 a:hover {
   color: #c7260c;
+  cursor: pointer;
 }
 table {
   margin: 20px auto 100px auto;
@@ -411,7 +409,7 @@ td {
   border-top: 1px solid rgb(0, 0, 0);
 }
 td:hover {
-  height: 50px;
+  height: 70px;
 }
 table {
   border: medium solid #c7260c;
@@ -421,7 +419,7 @@ table {
 th {
   font-family: monospace;
   border: thin solid #6495ed;
-  width: 50%;
+  min-width: 100px;
   padding: 5px;
   background-color: #002450;
   padding: 5px;
@@ -436,4 +434,5 @@ td {
   text-align: center;
   background-color: #ffffff;
 }
+
 </style>

@@ -1,17 +1,17 @@
 <template>
   <div class="import">
     <form
-      action="./import"
+      action="/import"
       method="POST"
       enctype="multipart/form-data"
-      @submit="checkForm"
+      @submit.prevent="checkForm"
     >
       <input
         id="addfiles"
         hidden
         type="file"
         name="import_file"
-        @change="onChange"
+        @change="processFile($event)"
       />
       <div class="formimport">
         <h2>Importer un fichier excel</h2>
@@ -32,32 +32,33 @@ export default {
   name: "Import",
   data() {
     return {
-      file: {
-        name: "",
-        size: "",
-        type: "",
-      },
+      file: {},
     };
   },
   methods: {
-    onChange(event) {
-      this.file = event.target.files ? event.target.files[0] : null;
+    processFile(event) {
+      const file = event.target.files[0];
+      this.createBase64Image(file);
     },
-    checkForm: function (e) {
-      var data = new FormData();
-      data.append(this.file.name, this.file);
+    createBase64Image(fileObject) {
+      const reader = new FileReader();
 
+      reader.onload = (e) => {
+        this.file = e.target.result;
+      };
+      reader.readAsDataURL(fileObject);
+    },
+    checkForm: async function () {
       const requestOptions = {
         method: "POST",
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": 'multipart/form-data',
         },
         mode: "cors",
-        body: data,
+        body: JSON.stringify(this.file)
       };
-      fetch("http://projet:8080/Project_ski/API/import", requestOptions);
-      e.preventDefault();
-      console.log(this.file);
+      await fetch("http://projet:8080/Project_ski/API/import", requestOptions);
+     
     },
   },
 };
