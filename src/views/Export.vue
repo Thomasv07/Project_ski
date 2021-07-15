@@ -97,7 +97,9 @@
               </div>
             </div>
             <div class="picture">
-              <label for="imgInp"><img src="../assets/tof.png" /></label>
+              <label for="imgInp">
+                <img id="preview" src="../assets/tof.png" />
+              </label>
               <input
                 @change="processFile($event)"
                 class="input2"
@@ -157,6 +159,7 @@
 
 <script>
 import ApiService from "../services/api.services";
+const axios = require("axios");
 
 const apiservice = new ApiService();
 
@@ -165,6 +168,7 @@ export default {
   components: {},
   data() {
     return {
+      data: "",
       categories: null,
       participants: null,
       tournament: {
@@ -207,6 +211,10 @@ export default {
     },
     processFile(event) {
       const image = event.target.files[0];
+      if (image) {
+        var p = document.getElementById('preview');
+        p.src = URL.createObjectURL(image);
+      }
       this.createBase64Image(image);
     },
     createBase64Image(fileObject) {
@@ -230,10 +238,12 @@ export default {
       e.preventDefault();
     },
     async exportexcel() {
-      fetch("http://projet:8080/Project_ski/API/export");
-
+      const responseExport = await axios.get(
+        "http://projet:8080/Project_ski/API/export"
+      );
+      this.data = responseExport.data;
       var link = document.createElement("a");
-      link.setAttribute("href", "../evenement.xlsx");
+      link.setAttribute("href", this.data);
       link.setAttribute("download", "evenement.xlsx");
 
       document.body.appendChild(link);
@@ -351,10 +361,20 @@ label {
   justify-content: center;
   margin-top: 50px;
 }
+.picture > label > img {
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  object-fit: scale-down;
+
+}
 .addpax {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
+}
+.addpax > button {
+  cursor: pointer;
 }
 .submit {
   display: flex;
