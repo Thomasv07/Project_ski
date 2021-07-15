@@ -86,8 +86,11 @@ class ControllerParticipant
         header('Content-Disposition: attachment;filename="evenement.xlsx"');
 
         $writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save('php://output');
-        echo JSON_encode($writer);
+        $writer->save('../src/evenement.xlsx');
+
+        // $imgbinary = fread(fopen('./evenement.xlsx', "r"), filesize('./evenement.xlsx'));
+        // echo 'data:image/xlsx;base64,' . base64_encode($imgbinary);
+        
     }
 
     public function deletepax($id)

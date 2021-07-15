@@ -124,7 +124,6 @@
         @click="exportexcel()"
         value="Exporter le fichier excel"
       />
-      <a></a>
     </div>
     <table>
       <thead>
@@ -148,9 +147,7 @@
           <td class="date">{{ participant.dob }}</td>
           <td>{{ participant.email }}</td>
           <td>
-            <a @click="del(participant.id_participant)">
-              Suppression
-            </a>
+            <a @click="del(participant.id_participant)"> Suppression </a>
           </td>
         </tr>
       </tbody>
@@ -170,7 +167,6 @@ export default {
     return {
       categories: null,
       participants: null,
-      export: null,
       tournament: {
         city: "",
         date: "",
@@ -232,23 +228,17 @@ export default {
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
-      console.log(this.form);
     },
-    exportexcel() {
-      fetch("http://projet:8080/Project_ski/API/export", {
-            // If you forget this, your download will be corrupt.
-            responseType: 'blob'
-        }).then((response) =>  {
-          console.log(response);
-        const blob = new Blob([response.data], { type: 'application/excel' })
-        const link = document.createElement('a')
-        link.href = URL.createObjectURL(blob)
-        link.download = 'evenment.xlsx'
-        link.click()
-        URL.revokeObjectURL(link.href)
-          alert("your file has downloaded!");
-        })
-        .catch(() => alert("oh no!"));
+    async exportexcel() {
+      fetch("http://projet:8080/Project_ski/API/export");
+
+      var link = document.createElement("a");
+      link.setAttribute("href", "../evenement.xlsx");
+      link.setAttribute("download", "evenement.xlsx");
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
     del(id) {
       if (confirm("Voulez vous supprimer ce participant?")) {
@@ -434,5 +424,4 @@ td {
   text-align: center;
   background-color: #ffffff;
 }
-
 </style>
