@@ -126,7 +126,7 @@
       />
       <a></a>
     </div>
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>Numéro de dossard</th>
@@ -261,6 +261,47 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width: 1100px) {
+  div.twobox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  div.allinput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  form.secondcard {
+    width: 403px;
+  }
+  div.firstinput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  div.secondinput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0 15px;
+  }
+  input#lastname.input2 {
+    margin-bottom: 15px;
+  }
+  input#firstname.input2 {
+    margin-bottom: 15px;
+  }
+  div.picture {
+    margin-top: 20px;
+  }
+  div.addpax {
+    margin-top: 20px;
+  }
+  table.table {
+    width: 2px;
+  }
+}
 h2 {
   display: flex;
   align-items: center;
@@ -319,9 +360,10 @@ label {
   padding: 5px;
 }
 .secondcard {
-  background-image: url("../assets/neige.jpg");
+  background-image: url("../assets/card4.png");
   width: 50%;
   height: 600px;
+  
 }
 .container {
   width: 100%;
@@ -398,10 +440,7 @@ a {
 a:hover {
   color: #c7260c;
 }
-table {
-  margin: 20px auto 100px auto;
-  padding: 0;
-}
+
 td {
   padding: 20px 5px;
   height: 30px;
@@ -415,16 +454,28 @@ table {
   border: medium solid #c7260c;
   border-collapse: collapse;
   width: 50%;
+  margin: 0 auto;
+}
+thead {
+  text-align: center;
+  font-size: 12px;
+}
+tbody {
+  text-align: center;
+  font-size: 12px;
 }
 th {
   font-family: monospace;
   border: thin solid #6495ed;
-  width: 50%;
+  width: 150px;
   padding: 5px;
   background-color: #002450;
   padding: 5px;
   background-color: #002450;
   color: white;
+}
+tr {
+  width: 700px;
 }
 td {
   font-family: sans-serif;

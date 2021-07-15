@@ -19,7 +19,7 @@
           <li>Hors-piste</li>
         </ul>
       </div>
-      <p>
+      <p class="para">
         Snow Generations, l’histoire faite dengagement, de partage et
         d'innovation. 17000 moniteurs Snow Generation autour de la France,
         réunis autour des mêmes valeurs. Rendant la montagne accessible à tous,
@@ -49,6 +49,76 @@ export default {
 * {
   margin: 0;
   padding: 0;
+}
+@media screen and (max-width: 1310px) {
+  p.droit {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+  }
+  div.container {
+    margin: 0 0 0 10px;
+  }
+}
+@media screen and (max-width: 950px) {
+  div.container {
+    margin: 0 0 0 50px;
+  }
+}
+@media screen and (max-width: 850px) {
+  div.container {
+    justify-content: unset;
+    margin: 0 15px;
+  }
+  div.discipline {
+    margin: 0 20px;
+  }
+  div.evenement {
+    margin: 0 20px;
+  }
+  p.para {
+    width: 325px;
+  }
+  p.gras {
+  }
+}
+@media screen and (max-width: 700px) {
+  
+  div.evenement {
+  }
+  div.container {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+  }
+  p.para {
+    display: flex;
+    width: 500px;
+  }
+}
+@media screen and (max-width: 520px) {
+  p.para {
+    width: 350px;
+    margin: 15px 60px 0 60px;
+  }
+}
+@media screen and (max-width: 400px) {
+  p.para {
+    width: 250px;
+    margin: 15px 60px 0 60px;
+  }
+  div.er {
+    display: flex;
+    align-items: center;
+    
+  }
+  p.droit {
+    font-size: 12px;
+    margin: 0;
+  }
 }
 .foot {
   background-color: #4a4a4a;
@@ -91,15 +161,23 @@ li::before {
   height: 2px;
   background: white;
 }
-p {
+.gras {
+  margin-top: 35px;
+  width: 30vw;
+  color: white;
+}
+.para {
   margin-top: 35px;
   width: 30vw;
   color: white;
 }
 .droit {
-  margin-top: 35px;
-  margin-left: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 55vw;
+  margin-top: 35px;
+  color: white;
 }
 .er {
   display: flex;

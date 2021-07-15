@@ -69,6 +69,21 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 1150px) {
+  div.home {
+    display: flex;
+    flex-direction: column;
+  }
+  div#general{
+    width: 406px;
+  }
+  img.skidefond{
+    display: none;
+  }
+  img.skidefond1{
+    display: none;
+  }
+}
 .home {
   display: flex;
   justify-content: space-around;
