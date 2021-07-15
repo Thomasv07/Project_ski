@@ -33,8 +33,8 @@ class ControllerParticipant
         // Rename the file and Specify the location where you want to save the image
         $prefix = substr($data->firstname, 0, 1) . substr($data->lastname, 0, 1);
         $uniq = uniqid($prefix);
-        $img_file = '../src/assets/'.$uniq.'.png';
-        $rename = $uniq.'.png';
+        $img_file = '../src/assets/' . $uniq . '.png';
+        $rename = $uniq . '.png';
 
         // Save the GD resource as PNG in the best possible quality (no compression)
         // This will strip any metadata or invalid contents (including, the PHP backdoor)
@@ -60,8 +60,6 @@ class ControllerParticipant
         $managerevent = new TournamentManager();
         $tournaments = $managerevent->listTournament();
 
-        var_dump($tournaments);
-
         $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -84,10 +82,15 @@ class ControllerParticipant
             $rowcount++;
         }
 
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="evenement.xlsx"');
+
         $writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save('php://output');
-        echo "<meta http-equiv='refresh' content='0;url=evenement.xlsx'/>";
-        return $writer;
+        $writer->save('./evenement.xlsx');
+
+        $imgbinary = fread(fopen('./evenement.xlsx', "r"), filesize('./evenement.xlsx'));
+        echo 'data:image/xlsx;base64,' . base64_encode($imgbinary);
+        
     }
 
     public function deletepax($id)

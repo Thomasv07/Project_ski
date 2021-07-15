@@ -97,7 +97,9 @@
               </div>
             </div>
             <div class="picture">
-              <label for="imgInp"><img src="../assets/tof.png" /></label>
+              <label for="imgInp">
+                <img id="preview" src="../assets/tof.png" />
+              </label>
               <input
                 @change="processFile($event)"
                 class="input2"
@@ -124,7 +126,6 @@
         @click="exportexcel()"
         value="Exporter le fichier excel"
       />
-      <a></a>
     </div>
     <table>
       <thead>
@@ -148,9 +149,7 @@
           <td class="date">{{ participant.dob }}</td>
           <td>{{ participant.email }}</td>
           <td>
-            <a @click="del(participant.id_participant)">
-              Suppression
-            </a>
+            <a @click="del(participant.id_participant)"> Suppression </a>
           </td>
         </tr>
       </tbody>
@@ -160,6 +159,7 @@
 
 <script>
 import ApiService from "../services/api.services";
+const axios = require("axios");
 
 const apiservice = new ApiService();
 
@@ -168,6 +168,7 @@ export default {
   components: {},
   data() {
     return {
+      data: "",
       categories: null,
       participants: null,
       tournament: {
@@ -199,7 +200,6 @@ export default {
       const data = await res.json();
       this.participants = data;
     },
-
     Formtournament: function (e) {
       const requestOptions = {
         method: "POST",
@@ -211,6 +211,10 @@ export default {
     },
     processFile(event) {
       const image = event.target.files[0];
+      if (image) {
+        var p = document.getElementById('preview');
+        p.src = URL.createObjectURL(image);
+      }
       this.createBase64Image(image);
     },
     createBase64Image(fileObject) {
@@ -226,32 +230,25 @@ export default {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-          "Access-Control-Allow-Origin": "*",
         },
         mode: "cors",
         body: JSON.stringify(this.form),
       };
       fetch("http://projet:8080/Project_ski/API/insert", requestOptions);
       e.preventDefault();
-      console.log(this.form);
     },
-    exportexcel() {
-      fetch("http://projet:8080/Project_ski/API/export")
-        .then((resp) => resp.blob())
-        .then((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.style.display = "none";
-          a.href = "./assets/evenement.xlsx";
-          // the filename you want
-          a.download = "evenement.xlsx";
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          alert("your file has downloaded!");
-        })
-        .catch(() => alert("oh no!"));
+    async exportexcel() {
+      const responseExport = await axios.get(
+        "http://projet:8080/Project_ski/API/export"
+      );
+      this.data = responseExport.data;
+      var link = document.createElement("a");
+      link.setAttribute("href", this.data);
+      link.setAttribute("download", "evenement.xlsx");
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
     del(id) {
       if (confirm("Voulez vous supprimer ce participant?")) {
@@ -364,10 +361,20 @@ label {
   justify-content: center;
   margin-top: 50px;
 }
+.picture > label > img {
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  object-fit: scale-down;
+
+}
 .addpax {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
+}
+.addpax > button {
+  cursor: pointer;
 }
 .submit {
   display: flex;
@@ -399,6 +406,7 @@ a {
 }
 a:hover {
   color: #c7260c;
+  cursor: pointer;
 }
 table {
   margin: 20px auto 100px auto;
@@ -411,7 +419,7 @@ td {
   border-top: 1px solid rgb(0, 0, 0);
 }
 td:hover {
-  height: 50px;
+  height: 70px;
 }
 table {
   border: medium solid #c7260c;
@@ -421,7 +429,7 @@ table {
 th {
   font-family: monospace;
   border: thin solid #6495ed;
-  width: 50%;
+  min-width: 100px;
   padding: 5px;
   background-color: #002450;
   padding: 5px;
