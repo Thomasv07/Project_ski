@@ -4,6 +4,8 @@ class TournamentManager extends Model
     public function insertionTournament($insert){
 
         $db = $this->getDb();
+        $tc= $db->query('TRUNCATE TABLE `tournament`');
+        $tc->closeCursor();
 
         $req = $db->prepare('INSERT INTO `tournament`(`city`, `date`) VALUES (:city, :date)');
         $req->bindValue(':city', $insert->getCity());

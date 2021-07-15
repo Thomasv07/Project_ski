@@ -1,6 +1,13 @@
 <?php
 class ParticipantManager extends Model
 {
+    
+    public function truncatepax(){
+
+        $db = $this->getDb();
+        $tc= $db->query('TRUNCATE TABLE  `participant`');
+        $tc->closeCursor();
+    }
 
     public function insertionParticipant($insert)
     {

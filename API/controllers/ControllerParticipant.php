@@ -11,6 +11,11 @@ class ControllerParticipant
         echo $participant;
     }
 
+    public function truncate(){
+        $manager = new ParticipantManager();
+        $participant = $manager->truncatepax();
+    }
+
     public function insertParticipant()
     {
         $json = file_get_contents('php://input');

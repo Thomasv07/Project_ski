@@ -11,7 +11,7 @@ $router->setBasePath('Project_ski/API/');
 $router->map('GET', '/', 'ControllerParticipant#getAll#ControllerParticipant#getCat', 'homepage');
 $router->map('GET', '/select', 'ControllerCategory#selectcategory');
 $router->map('POST', '/insert', 'ControllerParticipant#insertParticipant');
-$router->map('POST', '/event', 'ControllerTournament#insertTournament');
+$router->map('POST', '/event', 'ControllerTournament#insertTournament#ControllerParticipant#truncate');
 $router->map('GET', '/export', 'ControllerParticipant#exportExcel');
 $router->map('POST', '/import', 'ControllerTrial#insertExcel');
 $router->map('GET', '/delete[i:id]', 'ControllerParticipant#deletepax');
